@@ -4,7 +4,7 @@ import Search from './Search';
 
 const Featured = () => {
   return (
-    <div className='flex flex-col gap-8 w-1/4 border border-black'>
+    <div className='flex flex-col gap-8 w-1/4'>
       <Search />
       <Designers />
       <Designs />

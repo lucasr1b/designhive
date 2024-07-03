@@ -38,7 +38,7 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className='flex flex-col items-start w-56 gap-2 p-4 border border-black'>
+    <div className='flex flex-col items-start w-56 gap-2 p-4'>
       <h1 className='text-2xl font-bold'>DesignHive.</h1>
       <Button className='my-4'>Post</Button>
       <div className='flex flex-col justify-start w-full'>
