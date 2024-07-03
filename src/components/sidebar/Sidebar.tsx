@@ -38,10 +38,10 @@ const Sidebar = () => {
   ]
 
   return (
-    <div className='flex flex-col items-start w-56 gap-2 p-4'>
-      <h1 className='text-2xl font-bold'>DesignHive.</h1>
-      <Button className='my-4'>Post</Button>
-      <div className='flex flex-col justify-start w-full'>
+    <div className='flex flex-col items-start w-56 gap-2 px-2'>
+      <h1 className='text-2xl font-bold ml-4'>DesignHive.</h1>
+      <Button large className='mt-8 ml-4'>Post</Button>
+      <div className='flex flex-col justify-start w-full mt-4'>
         {sidebarItems.map((item, i) => (
           <SidebarItem key={i} item={item} />
         ))}
