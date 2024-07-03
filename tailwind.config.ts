@@ -14,8 +14,12 @@ const config: Config = {
         'accent': "#F2F2F2",
         'accent-secondary': "#F6F6F8",
       },
-    }
+    },
   },
+  safelist: [
+    'hover:text-black',
+    'hover:text-red-500',
+  ],
   plugins: [],
 };
 export default config;
