@@ -16,7 +16,7 @@ const PostAction = ({ icon, count, tooltip, hoverColor = 'black' }: PostActionPr
         </div>
         {count !== undefined && <span>{count}</span>}
       </div>
-      <span className='absolute bottom-full mb-1 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 font-medium text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200'>
+      <span className='absolute top-full mt-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 font-medium text-white text-xs rounded px-2 py-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200'>
         {tooltip}
       </span>
     </div>
