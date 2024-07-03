@@ -1,5 +1,5 @@
-import Designers from './Designers';
-import Designs from './Designs';
+import Designers from './designers/Designers';
+import Designs from './designs/Designs';
 import Search from './Search';
 
 const Featured = () => {
