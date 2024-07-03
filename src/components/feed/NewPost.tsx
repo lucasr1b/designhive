@@ -26,7 +26,7 @@ const NewPost = () => {
         />
 
       </div>
-      <Button small className='ml-auto'>Post</Button>
+      <Button small shadow className='ml-auto'>Post</Button>
     </div>
   );
 };
