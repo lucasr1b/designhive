@@ -1,6 +1,6 @@
 import Button from '@/components/atomic/Button';
 
-const DesignersItem = () => {
+const DesignerItem = () => {
   return (
     <div className='flex flex-row items-start py-3 px-2 gap-2'>
       <div className='bg-gray-400 rounded-full h-6 w-6'></div>
@@ -13,4 +13,4 @@ const DesignersItem = () => {
   );
 };
 
-export default DesignersItem;
+export default DesignerItem;
