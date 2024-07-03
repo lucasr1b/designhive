@@ -18,7 +18,7 @@ const DesignItem = ({ rank }: DesignItemProps) => {
       </div>
       <div className="flex flex-row gap-2 items-center">
         <div className="bg-gray-400 h-6 w-6 rounded-full"></div>
-        <span>Lucas Ribeiro</span>
+        <span className='font-medium'>Lucas Ribeiro</span>
       </div>
     </div>
   );

@@ -8,11 +8,11 @@ const Post = () => {
         <div className='bg-gray-400 rounded-full w-6 h-6'></div>
         <div className='flex flex-col gap-4 w-full'>
           <div className='flex flex-row items-center'>
-            <span className='font-medium'>Lucas Ribeiro</span>
+            <span className='font-semibold'>Lucas Ribeiro</span>
             <span className='text-secondary ml-auto text-xs'>4 mins ago</span>
           </div>
           <div className='flex flex-col gap-4'>
-            <span className='text-lg'>My First Post</span>
+            <span className='text-xl'>My First Post</span>
             <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-secondary'></div>
           </div>
           <div className='flex flex-row gap-8 mt-2'>
