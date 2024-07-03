@@ -10,7 +10,7 @@ const Post = () => {
           </div>
           <div className='flex flex-col gap-2'>
             <span>My First Post</span>
-            <div className='bg-gray-400 h-96 w-full rounded-lg border border-border-primary'></div>
+            <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-secondary'></div>
           </div>
           <div className='flex flex-row gap-8 mt-4'>
             <div className='flex items-center justify-center rounded-full bg-gray-400 h-8 w-8'>❤️ 5</div>

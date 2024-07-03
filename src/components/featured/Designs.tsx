@@ -1,6 +1,6 @@
 const Designs = () => {
   return (
-    <div className='border-2 rounded-md border-border-primary p-6'>
+    <div className='border-2 rounded-md border-accent-secondary p-6'>
       <h1 className='text-xl mb-4'>Trending designs</h1>
       <div className='flex flex-col gap-4'>
         <div className='bg-gray-400 h-64 rounded-lg'>

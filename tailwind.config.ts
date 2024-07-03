@@ -10,7 +10,8 @@ const config: Config = {
     extend: {
       colors: {
         'primary': '#2A2A28',
-        'border-primary': "#F6F6F8",
+        'accent': "#F2F2F2",
+        'accent-secondary': "#F6F6F8",
       },
     }
   },
