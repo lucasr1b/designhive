@@ -1,4 +1,4 @@
-import { RiHomeFill, RiHomeLine, RiMoreFill, RiMoreLine, RiNotification4Fill, RiNotification4Line, RiPushpinFill, RiPushpinLine, RiUser6Fill, RiUser6Line } from '@remixicon/react';
+import { RiDashboardFill, RiDashboardLine, RiGalleryView, RiGalleryView2, RiHomeFill, RiHomeLine, RiMoreFill, RiMoreLine, RiNotification4Fill, RiNotification4Line, RiPushpinFill, RiPushpinLine, RiUser6Fill, RiUser6Line } from '@remixicon/react';
 import Button from '../atomic/Button';
 import SidebarItem from './SidebarItem';
 
@@ -9,13 +9,13 @@ const Sidebar = () => {
       icon: <RiHomeLine />,
       activeIcon: <RiHomeFill />,
       route: '/',
-      label: 'Hive',
+      label: 'Home',
     },
     {
-      icon: <RiPushpinLine />,
-      activeIcon: <RiPushpinFill />,
-      route: '/pins',
-      label: 'Pins',
+      icon: <RiDashboardLine />,
+      activeIcon: <RiDashboardFill />,
+      route: '/hive',
+      label: 'Hive',
     },
     {
       icon: <RiNotification4Line />,

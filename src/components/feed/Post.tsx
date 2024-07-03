@@ -1,4 +1,4 @@
-import { RiChat1Line, RiEyeLine, RiHeart2Line, RiPushpinLine, RiShare2Line } from '@remixicon/react';
+import { RiChat1Line, RiDashboardLine, RiEyeLine, RiHeart2Line, RiPushpinLine, RiShare2Line } from '@remixicon/react';
 import PostAction from './PostAction';
 
 const Post = () => {
@@ -19,7 +19,7 @@ const Post = () => {
             <PostAction icon={<RiChat1Line />} count={1} tooltip='Comment' />
             <PostAction icon={<RiHeart2Line />} count={5} tooltip='Like' hoverColor='red-500' />
             <div className='flex flex-row gap-8 ml-auto'>
-              <PostAction icon={<RiPushpinLine />} tooltip='Pin' />
+              <PostAction icon={<RiDashboardLine />} tooltip='Add to Hive' />
               <PostAction icon={<RiShare2Line />} tooltip='Share' />
             </div>
           </div>
