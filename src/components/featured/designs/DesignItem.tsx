@@ -4,7 +4,7 @@ type DesignItemProps = {
 
 const DesignItem = ({ rank }: DesignItemProps) => {
   const colors: { [key: number]: string } = {
-    1: 'bg-yellow-500 text-yellow-700',
+    1: 'bg-yellow-500 text-white',
     2: 'bg-gray-300 text-gray-500',
     3: 'bg-yellow-700 text-yellow-600',
   };
