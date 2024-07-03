@@ -11,12 +11,12 @@ type ButtonProps = {
 const Button = ({ children, className = '', xsmall, small, large, outline, shadow }: ButtonProps) => {
   const sizeClass = xsmall ? 'w-20' : small ? 'w-28' : large ? 'w-48' : 'w-full';
   const baseClass = outline
-    ? 'border-2 border-accent text-black bg-transparent hover:bg-black hover:border-black hover:text-white'
+    ? 'border border-accent-200 text-black bg-transparent hover:bg-accent-300'
     : 'bg-primary text-white hover:bg-black';
   const shadowClass = shadow ? 'shadow-xl' : '';
 
   return (
-    <button className={`flex items-center justify-center rounded-full font-medium text-sm h-10 ${sizeClass} ${baseClass} ${shadowClass} ${className}`}>
+    <button className={`flex items-center justify-center gap-2 rounded-full font-medium text-sm h-10 ${sizeClass} ${baseClass} ${shadowClass} ${className}`}>
       {children}
     </button>
   );

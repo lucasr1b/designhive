@@ -9,11 +9,11 @@ const Post = () => {
         <div className='flex flex-col gap-4 w-full'>
           <div className='flex flex-row items-center'>
             <span className='font-semibold text-sm'>Lucas Ribeiro</span>
-            <span className='text-secondary ml-auto text-xs'>4 mins ago</span>
+            <span className='text-base-200 ml-auto text-xs'>4 mins ago</span>
           </div>
           <div className='flex flex-col gap-4'>
             <span className='text-md'>My First Post</span>
-            <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-secondary'></div>
+            <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-200'></div>
           </div>
           <div className='flex flex-row gap-8 mt-2'>
             <PostAction icon={<RiChat1Line />} count={1} tooltip='Comment' />

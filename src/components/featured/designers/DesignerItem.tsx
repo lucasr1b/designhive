@@ -6,7 +6,7 @@ const DesignerItem = () => {
       <div className='bg-gray-400 rounded-full h-6 w-6'></div>
       <div className='flex flex-col'>
         <span className='font-medium'>Lucas Ribeiro</span>
-        <span className='text-xs text-secondary'>@lucascodes</span>
+        <span className='text-xs text-base-200'>@lucascodes</span>
       </div>
       <Button xsmall outline className='ml-auto'>Follow</Button>
     </div>

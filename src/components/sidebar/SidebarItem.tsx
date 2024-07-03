@@ -18,11 +18,11 @@ const SidebarItem = ({ item }: SidebarItemProps) => {
 
   return (
     isActive ? (
-      <Link className={`flex flex-row gap-2 px-4 py-3 rounded-full cursor-pointer hover:bg-accent`} href={item.route}>
+      <Link className={`flex flex-row gap-2 px-4 py-3 rounded-full cursor-pointer hover:bg-accent-100`} href={item.route}>
         {item.activeIcon} <span className='font-medium'>{item.label}</span>
       </Link>
     ) : (
-      <Link className={`flex flex-row gap-2 px-4 py-3 rounded-full cursor-pointer hover:bg-accent`} href={item.route}>
+      <Link className={`flex flex-row gap-2 px-4 py-3 rounded-full cursor-pointer hover:bg-accent-100`} href={item.route}>
         {item.icon} <span>{item.label}</span>
       </Link>
     )

@@ -13,14 +13,14 @@ const NewPost = () => {
   };
 
   return (
-    <div className='border-2 rounded-xl border-accent-secondary p-4 w-full relative'>
+    <div className='border rounded-xl border-accent-200 p-4 w-full relative'>
       <div className='flex mb-4'>
         <div className='absolute top-4 left-4'>
           <div className='bg-gray-400 w-10 h-10 rounded-full'></div>
         </div>
         <textarea
           ref={postRef}
-          className='text-xl outline-none w-full h-auto max-h-96 resize-none placeholder:text-secondary pl-14 pt-2'
+          className='text-xl outline-none w-full h-auto max-h-96 resize-none placeholder:text-base-200 pl-14 pt-2'
           placeholder="What's happening?"
           onChange={adjustTextareaHeight}
         />
