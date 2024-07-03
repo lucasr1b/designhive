@@ -21,7 +21,7 @@ const NewPost = () => {
         <textarea
           ref={postRef}
           className='text-xl outline-none w-full h-auto max-h-96 resize-none placeholder:text-secondary pl-14 pt-2'
-          placeholder="What's happening"
+          placeholder="What's happening?"
           onChange={adjustTextareaHeight}
         />
 
