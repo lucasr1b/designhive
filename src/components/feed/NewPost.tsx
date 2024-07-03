@@ -1,3 +1,5 @@
+import Button from '../atomic/Button';
+
 const NewPost = () => {
   return (
     <div className='border-2 rounded-md border-border-primary p-4 w-full'>
@@ -5,9 +7,7 @@ const NewPost = () => {
         <div className='bg-gray-400 w-10 h-10 rounded-full'></div>
         <span className='text-xl'>What&apos;s happening?</span>
       </div>
-      <div className='flex items-center justify-center rounded-full bg-black text-white h-10 w-28 ml-auto'>
-        <div>Post</div>
-      </div>
+      <Button small className='ml-auto'>Post</Button>
     </div>
   );
 };
