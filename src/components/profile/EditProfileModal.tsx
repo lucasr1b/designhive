@@ -44,11 +44,11 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
       <div className='flex flex-col gap-2 p-4'>
         <div className='bg-gray-400 h-24 w-24 rounded-full' />
         <div className='flex flex-col gap-2 mb-4'>
-          <label htmlFor='fname'>Name</label>
+          <label htmlFor='fname' className='font-medium'>Name</label>
           <input name='fname' className='border border-accent-200 rounded-xl h-12 px-4 text-sm' defaultValue={user.name} />
-          <label htmlFor='username'>Username</label>
+          <label htmlFor='username' className='font-medium'>Username</label>
           <input name='username' className='border border-accent-200 rounded-xl h-12 px-4 text-sm' defaultValue={user.username} />
-          <label htmlFor='bio'>Bio</label>
+          <label htmlFor='bio' className='font-medium'>Bio</label>
           <textarea name='bio' className='border border-accent-200 rounded-xl p-4 text-sm resize-none' placeholder='Nothing here yet...' defaultValue={user.bio} />
         </div>
       </div>
