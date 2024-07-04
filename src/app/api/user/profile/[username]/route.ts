@@ -1,10 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
-import { connectToDB } from '@/backend/utils/connectToDB';
 import { getSession } from '@/utils/session';
 import { ObjectId } from 'mongoose';
-
-connectToDB();
 
 export async function GET(request: NextRequest, { params }: { params: { username: string } }) {
   try {

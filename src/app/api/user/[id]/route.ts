@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
 import mongoose from 'mongoose';
-import { connectToDB } from '@/backend/utils/connectToDB';
-
-connectToDB();
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {

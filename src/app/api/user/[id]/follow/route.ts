@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
-import { connectToDB } from '@/backend/utils/connectToDB';
 import { getSession } from '@/utils/session';
-
-connectToDB();
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {

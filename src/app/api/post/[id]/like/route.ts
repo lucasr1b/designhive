@@ -1,10 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import Post from '@/backend/models/Post';
-import { connectToDB } from '@/backend/utils/connectToDB';
 import { getSession } from '@/utils/session';
 import mongoose, { ObjectId } from 'mongoose';
-
-connectToDB();
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
