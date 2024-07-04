@@ -50,7 +50,7 @@ const SignupPage = () => {
           <input name='cpassword' type='password' className='border border-accent-200 rounded-xl h-12 px-4 text-sm' placeholder='Confirm password' />
           <Button type='submit'>Sign up</Button>
         </form>
-        <span className='text-base-100'>Already have an account? <Link href='/login' className='text-base-200 cursor-pointer hover:text-black'>Log in</Link></span>
+        <span className='text-base-200'>Already have an account? <Link href='/login' className='text-black cursor-pointer hover:underline'>Log in</Link></span>
       </div>
     </div >
   );

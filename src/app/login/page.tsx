@@ -47,7 +47,7 @@ const LoginPage = () => {
           <input name='password' type='password' className='border border-accent-200 rounded-xl h-12 px-4 text-sm' placeholder='Password' />
           <Button type='submit'>Log in</Button>
         </form>
-        <span className='text-base-100'>Don&apos;t have an account? <Link href='/signup' className='text-base-200 cursor-pointer hover:text-black'>Sign up</Link></span>
+        <span className='text-base-200'>Don&apos;t have an account? <Link href='/signup' className='text-black cursor-pointer hover:underline'>Sign up</Link></span>
       </div>
     </div >
   );
