@@ -1,11 +1,16 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 interface IUser extends Document {
   name: string;
   email: string;
   username: string;
-  pfp?: string;
+  pfp: string;
+  bio: string;
+  followers: ObjectId[];
+  following: ObjectId[];
+  followerCount: number;
+  followingCount: number;
   password: string;
   comparePassword(password: string): Promise<boolean>;
 }
@@ -28,6 +33,30 @@ const UserSchema: Schema<IUser> = new Schema({
   pfp: {
     type: String,
     default: ''
+  },
+  bio: {
+    type: String,
+    default: ''
+  },
+  followers: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  following: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ],
+  followerCount: {
+    type: Number,
+    default: 0
+  },
+  followingCount: {
+    type: Number,
+    default: 0
   },
   password: {
     type: String,

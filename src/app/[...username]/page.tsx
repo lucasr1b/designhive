@@ -27,7 +27,6 @@ const UserProfilePage = ({ params }: { params: { username: string } }) => {
         const { data } = await axios.get(`/api/user/profile/${params.username}`);
         setUserData(data);
       } catch (err: any) {
-        setUserData(err.response.data.user);
         setNotFound(true);
         console.error('Error fetching user:', err.response.data.error);
       } finally {
@@ -37,6 +36,30 @@ const UserProfilePage = ({ params }: { params: { username: string } }) => {
     fetchUser();
   }, [params.username]);
 
+  const follow = async () => {
+    try {
+      await axios.post(`/api/user/${userData._id}/follow`);
+      setUserData((prev: any) => ({
+        ...prev,
+        followerCount: prev.followerCount + 1
+      }));
+    } catch (err: any) {
+      console.error('Error following user:', err.response.data.error);
+    }
+  }
+
+  const unfollow = async () => {
+    try {
+      await axios.post(`/api/user/${userData._id}/unfollow`);
+      setUserData((prev: any) => ({
+        ...prev,
+        followerCount: prev.followerCount - 1
+      }));
+    } catch (err: any) {
+      console.error('Error unfollowing user:', err.response.data.error);
+    }
+  }
+
   return (
     <main className='flex gap-10 w-full min-h-screen px-24 py-8'>
       <Sidebar />
@@ -44,16 +67,15 @@ const UserProfilePage = ({ params }: { params: { username: string } }) => {
         {loading ? (
           <p>Loading...</p>
         ) : (
-          <>
-            <ProfileHeader user={userData} isProfileOwner={isProfileOwner} />
-            <hr className='border-accent-400' />
-            {notFound ? (
-              <ProfileDoesNotExist />
-            ) : (
+          notFound ? (
+            <ProfileDoesNotExist username={params.username} />
+          ) : (
+            <>
+              <ProfileHeader user={userData} isProfileOwner={isProfileOwner} follow={follow} unfollow={unfollow} />
+              <hr className='border-accent-400' />
               <ProfilePosts />
-            )}
-          </>
-        )}
+            </>
+          ))}
       </div>
       <Featured />
     </main>
