@@ -12,8 +12,8 @@ type ProfileHeaderProps = {
     isFollowing: boolean;
   },
   isProfileOwner?: boolean;
-  follow: () => void;
-  unfollow: () => void;
+  follow?: () => void;
+  unfollow?: () => void;
 };
 
 const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow }: ProfileHeaderProps) => {
