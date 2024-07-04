@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import { POSTS_PER_PAGE } from '@/utils/constants';
 import { Post, PostUserData } from '@/utils/types';
 import axios from 'axios';
+import { useSession } from '@/contexts/SessionContext';
 
 const usePosts = (feedType: string) => {
   const [posts, setPosts] = useState<PostUserData[]>([]);
@@ -14,6 +15,8 @@ const usePosts = (feedType: string) => {
   const loadingRef = useRef(false);
   const hasMoreRef = useRef(true);
 
+  const { session } = useSession();
+
   useEffect(() => {
     loadingRef.current = loading;
   }, [loading]);
@@ -23,7 +26,7 @@ const usePosts = (feedType: string) => {
   }, [hasMore]);
 
   const fetchPosts = useCallback(async (pageToFetch: number) => {
-    if (loadingRef.current || !hasMoreRef.current) return;
+    if (loadingRef.current || !hasMoreRef.current || !session) return;
 
     setLoading(true);
     setError(null);
@@ -42,7 +45,7 @@ const usePosts = (feedType: string) => {
           }
 
           const { data: userData } = await axios.get(`/api/user/${post.authorId}`);
-          const initialLiked = post.likes.includes(userData._id);
+          const initialLiked = session && session._id ? post.likes.includes(session._id) : false;
 
           return {
             ...post,
@@ -64,10 +67,10 @@ const usePosts = (feedType: string) => {
     } finally {
       setLoading(false);
     }
-  }, [feedType]);
+  }, [feedType, session]);
 
   useEffect(() => {
-    if (!isInitialMount.current) {
+    if (!isInitialMount.current && session) {
       setPosts([]);
       setPage(1);
       setHasMore(true);
@@ -76,13 +79,13 @@ const usePosts = (feedType: string) => {
     } else {
       isInitialMount.current = false;
     }
-  }, [feedType, fetchPosts]);
+  }, [feedType, fetchPosts, session]);
 
   const loadMore = useCallback(() => {
-    if (!loadingRef.current && hasMoreRef.current) {
+    if (!loadingRef.current && hasMoreRef.current && session) {
       fetchPosts(page);
     }
-  }, [fetchPosts, page]);
+  }, [fetchPosts, page, session]);
 
   return { posts, loading, error, loadMore, hasMore };
 };

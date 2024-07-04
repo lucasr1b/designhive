@@ -20,6 +20,7 @@ const LogoutModal = ({ isModalOpen, profileRef, toggleModal }: LogoutModalProps)
 
   const handleLogout = async () => {
     await logout();
+    toggleModal();
     setSession(null);
     push('/login');
   }

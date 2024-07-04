@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { RiChat1Line, RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiShare2Line } from '@remixicon/react';
 import PostAction from './PostAction';
+import React from 'react';
 
 type PostProps = {
   _id: string;
@@ -62,4 +63,4 @@ const Post = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount
   );
 };
 
-export default Post;
+export default React.memo(Post);
