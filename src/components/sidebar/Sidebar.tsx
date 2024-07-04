@@ -52,7 +52,7 @@ const Sidebar = () => {
   return (
     <>
       <div className='w-60'>
-        <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60'>
+        <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60 py-3'>
           <h1 className='text-2xl font-bold ml-4 mt-4'>DesignHive.</h1>
           <Button large shadow className='mt-8 ml-4'>Post</Button>
           <div className='flex flex-col justify-start w-full mt-4 gap-2'>
@@ -71,7 +71,7 @@ const Sidebar = () => {
                   <span className='font-medium truncate'>{session.name}</span>
                   <span className='text-base-200 truncate'>@{session.username}</span>
                 </div>
-                <span className='flex-shrink-0'><RiMoreLine /></span>
+                <span className='flex-shrink-0'><RiMoreFill size={20} /></span>
               </div>
             </div>
           )}
