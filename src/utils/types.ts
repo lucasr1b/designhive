@@ -10,3 +10,18 @@ export interface SessionData {
   pfp?: string;
   isLoggedIn: boolean;
 }
+
+export interface Post {
+  _id: string;
+  authorId: string;
+  type: string;
+  content: string;
+  likeCount: number;
+  replyCount: number;
+  createdAt: string;
+}
+
+export interface PostUserData extends Post {
+  authorName: string;
+  authorPfp: string;
+}
