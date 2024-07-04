@@ -6,6 +6,7 @@ import { SessionData } from '../utils/types';
 type SessionContextType = {
   session: SessionData | null;
   setSession: (session: SessionData | null) => void;
+  updateSession: (updatedSession: Partial<SessionData>) => void;
   sessionLoading: boolean;
 };
 
@@ -26,8 +27,12 @@ export const SessionProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
+  const updateSession = (updatedSession: Partial<SessionData>) => {
+    setSession(prevSession => prevSession ? { ...prevSession, ...updatedSession } : null);
+  };
+
   return (
-    <SessionContext.Provider value={{ session, setSession, sessionLoading }}>
+    <SessionContext.Provider value={{ session, setSession, updateSession, sessionLoading }}>
       {children}
     </SessionContext.Provider>
   );

@@ -11,6 +11,17 @@ export interface SessionData {
   isLoggedIn: boolean;
 }
 
+export interface User {
+  _id: string;
+  name: string;
+  username: string;
+  pfp: string;
+  bio: string;
+  followerCount: number;
+  followingCount: number;
+  isFollowing: boolean;
+}
+
 export interface Post {
   _id: string;
   authorId: string;

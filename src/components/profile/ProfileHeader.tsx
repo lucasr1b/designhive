@@ -1,27 +1,25 @@
 import { useState } from 'react';
 import Button from '../atomic/Button';
 import EditProfileModal from './EditProfileModal';
+import { User } from '@/utils/types';
 
 type ProfileHeaderProps = {
-  user: {
-    _id: string;
-    name: string;
-    username: string;
-    pfp: string;
-    bio: string;
-    followerCount: number;
-    followingCount: number;
-    isFollowing: boolean;
-  },
+  user: User;
   isProfileOwner?: boolean;
   follow?: () => void;
   unfollow?: () => void;
+  onUpdateUser: (updatedUser: Partial<User>) => void;
 };
 
-const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow }: ProfileHeaderProps) => {
+const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdateUser }: ProfileHeaderProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const toggleModal = () => setIsModalOpen(!isModalOpen);
+
+  const handleUserUpdate = (updatedUser: Partial<User>) => {
+    onUpdateUser(updatedUser);
+    toggleModal();
+  };
 
   return (
     <>
@@ -31,13 +29,10 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow }: Profi
           <div className='bg-gray-400 h-32 w-32 rounded-full' />
           {isProfileOwner ? (
             <Button small outline onClick={toggleModal}>Edit profile</Button>
+          ) : user.isFollowing ? (
+            <Button small outline onClick={unfollow}>Unfollow</Button>
           ) : (
-            user.isFollowing ? (
-              <Button small outline onClick={unfollow}>Unfollow</Button>
-            ) : (
-              <Button small onClick={follow}>Follow</Button>
-            )
-
+            <Button small onClick={follow}>Follow</Button>
           )}
         </div>
         <div className='flex flex-col'>
@@ -49,7 +44,13 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow }: Profi
             <span className='text-base-200'><span className='text-black font-semibold'>{user.followerCount}</span> followers</span>
           </div>
         </div>
-        {isModalOpen && <EditProfileModal user={user} onClose={toggleModal} />}
+        {isModalOpen && (
+          <EditProfileModal
+            user={user}
+            onClose={toggleModal}
+            onUpdate={handleUserUpdate}
+          />
+        )}
       </div>
     </>
   );
