@@ -13,7 +13,7 @@ type ButtonProps = {
 const Button = ({ children, type = 'button', onClick, className = '', xsmall, small, large, outline, shadow }: ButtonProps) => {
   const sizeClass = xsmall ? 'w-20' : small ? 'w-28' : large ? 'w-48' : 'w-full';
   const baseClass = outline
-    ? 'border border-accent-200 text-black bg-transparent hover:bg-accent-300'
+    ? 'border border-accent-200 text-black bg-transparent hover:bg-accent-100'
     : 'bg-primary text-white hover:bg-black';
   const shadowClass = shadow ? 'shadow-xl' : '';
 

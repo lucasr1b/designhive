@@ -26,6 +26,7 @@ const config: Config = {
   safelist: [
     'hover:text-black',
     'hover:text-red-500',
+    'border-blue-500',
   ],
   plugins: [],
 };

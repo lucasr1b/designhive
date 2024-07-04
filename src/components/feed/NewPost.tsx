@@ -47,7 +47,6 @@ const NewPost = () => {
 
   const handleFiles = (files: FileList) => {
     setFiles(Array.from(files));
-    // Here you would typically upload the files to your server
     console.log('Files to upload:', files);
   };
 
@@ -77,7 +76,8 @@ const NewPost = () => {
           {postType === 'Design' && (
             <div
               id='fileInputInnerWrapper'
-              className={`flex w-full border-2 rounded-md overflow-hidden group min-h-24 border-neutral-300 border-dashed ${dragActive ? 'border-blue-500' : ''}`}
+              className={`flex w-full border-2 rounded-md overflow-hidden group min-h-24 border-dashed transition-colors duration-300 ease-in-out
+      ${dragActive ? 'border-blue-500 bg-blue-50' : 'border-neutral-300 group-hover:border-blue-300'}`}
               onDragEnter={handleDrag}
               onDragLeave={handleDrag}
               onDragOver={handleDrag}
@@ -85,7 +85,7 @@ const NewPost = () => {
             >
               <div className='w-full flex items-center justify-center'>
                 <div id='inputInfo' className='flex flex-row gap-2 items-center'>
-                  <span>Drag and Drop images or videos or</span>
+                  <span>Drag and Drop images or</span>
                   <FileUpload onClick={onButtonClick}>
                     <RiUploadLine size={16} />
                   </FileUpload>
