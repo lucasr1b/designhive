@@ -1,15 +1,37 @@
 'use client';
+import { login } from '@/actions/session';
 import Button from '@/components/atomic/Button';
+import { useSession } from '@/contexts/SessionContext';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
+  const { session, setSession, sessionLoading } = useSession();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (session?.isLoggedIn) {
+      push('/');
+    }
+  }, [session, push]);
+
+  if (session?.isLoggedIn || sessionLoading) {
+    return null;
+  }
+
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
 
-    console.log(formData.get('username'));
+    try {
+      const user = await login(formData);
+      setSession(user);
+    } catch (err: any) {
+      console.log(err.message);
+    }
   }
 
   return (

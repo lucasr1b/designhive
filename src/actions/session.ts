@@ -32,7 +32,7 @@ export const signup = async (formData: FormData) => {
     password: formPassword
   });
 
-  session._id = user._id;
+  session._id = user._id.toString();
   session.name = user.name;
   session.email = user.email;
   session.username = user.username;
@@ -40,5 +40,54 @@ export const signup = async (formData: FormData) => {
   session.isLoggedIn = true;
   await session.save();
 
-  return session;
+  return {
+    _id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    username: user.username,
+    pfp: user.pfp,
+    isLoggedIn: true,
+  };
+}
+
+export const login = async (formData: FormData) => {
+  await connectToDB();
+  const session = await getSessionWithMethods();
+
+  const { username, password } = Object.fromEntries(formData);
+
+  const formUsername = username as string;
+  const formPassword = password as string;
+
+  const user = await User.findOne({
+    $or: [{ email: formUsername }, { username: formUsername }]
+  });
+
+  if (!user || !(await user.comparePassword(formPassword))) {
+    throw new Error('Email/username or password is incorrect');
+  };
+
+  session._id = user._id.toString();
+  session.name = user.name;
+  session.email = user.email;
+  session.username = user.username;
+  session.pfp = user.pfp;
+  session.isLoggedIn = true;
+  await session.save();
+
+  return {
+    _id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    username: user.username,
+    pfp: user.pfp,
+    isLoggedIn: true,
+  };
+};
+
+export const logout = async () => {
+  const session = await getSessionWithMethods();
+
+  session.isLoggedIn = false;
+  await session.save();
 }

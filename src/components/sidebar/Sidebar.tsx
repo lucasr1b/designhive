@@ -1,11 +1,20 @@
 'use client';
-import { RiDashboardFill, RiDashboardLine, RiHomeFill, RiHomeLine, RiMoreFill, RiMoreLine, RiNotification4Fill, RiNotification4Line, RiUser6Fill, RiUser6Line } from '@remixicon/react';
+import { RiDashboardFill, RiDashboardLine, RiHomeFill, RiHomeLine, RiLogoutBoxLine, RiLogoutCircleLine, RiMoreFill, RiMoreLine, RiNotification4Fill, RiNotification4Line, RiSettings3Fill, RiSettings3Line, RiUser6Fill, RiUser6Line } from '@remixicon/react';
 import Button from '../atomic/Button';
 import SidebarItem from './SidebarItem';
 import { useSession } from '@/contexts/SessionContext';
+import { useState, useEffect, useRef, RefObject } from 'react';
+import { createPortal } from 'react-dom';
+import LogoutModal from './LogoutModal';
 
 const Sidebar = () => {
   const { session } = useSession();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const profileRef: RefObject<HTMLDivElement> = useRef(null);
+
+  const handleProfileClick = () => {
+    setIsModalOpen(!isModalOpen);
+  };
 
   const sidebarItems = [
     {
@@ -33,35 +42,43 @@ const Sidebar = () => {
       label: 'Profile',
     },
     {
-      icon: <RiMoreLine />,
-      activeIcon: <RiMoreFill />,
-      route: '',
-      label: 'More',
+      icon: <RiSettings3Line />,
+      activeIcon: <RiSettings3Fill />,
+      route: '/settings',
+      label: 'Settings',
     },
   ];
 
   return (
-    <div className='w-60'>
-      <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 z-10 w-60'>
-        <h1 className='text-2xl font-bold ml-4 mt-4'>DesignHive.</h1>
-        <Button large shadow className='mt-8 ml-4'>Post</Button>
-        <div className='flex flex-col justify-start w-full mt-4 gap-2'>
-          {sidebarItems.map((item, i) => (
-            <SidebarItem key={i} item={item} />
-          ))}
-        </div>
-
-        {session && session.isLoggedIn && (
-          <div className='flex flex-row items-center gap-2 w-full rounded-full mt-auto mb-4 py-2 px-3 cursor-pointer hover:bg-accent-100'>
-            <div className='flex-shrink-0 bg-gray-400 w-10 h-10 rounded-full' />
-            <div className='flex flex-col justify-center overflow-hidden'>
-              <span className='font-medium truncate'>{session.name}</span>
-              <span className='text-base-200 truncate'>@{session.username}</span>
-            </div>
+    <>
+      <div className='w-60'>
+        <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60'>
+          <h1 className='text-2xl font-bold ml-4 mt-4'>DesignHive.</h1>
+          <Button large shadow className='mt-8 ml-4'>Post</Button>
+          <div className='flex flex-col justify-start w-full mt-4 gap-2'>
+            {sidebarItems.map((item, i) => (
+              <SidebarItem key={i} item={item} />
+            ))}
           </div>
-        )}
+          {session && session.isLoggedIn && (
+            <div className='mt-auto mb-4' ref={profileRef}>
+              <div
+                className='flex flex-row items-center gap-2 w-full rounded-full py-2 px-3 cursor-pointer hover:bg-accent-100'
+                onClick={handleProfileClick}
+              >
+                <div className='flex-shrink-0 bg-gray-400 w-10 h-10 rounded-full overflow-hidden'></div>
+                <div className='flex flex-col justify-center overflow-hidden'>
+                  <span className='font-medium truncate'>{session.name}</span>
+                  <span className='text-base-200 truncate'>@{session.username}</span>
+                </div>
+                <span className='flex-shrink-0'><RiMoreLine /></span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+      {isModalOpen && createPortal(<LogoutModal isModalOpen={isModalOpen} profileRef={profileRef} toggleModal={handleProfileClick} />, document.body)}
+    </>
   );
 };
 

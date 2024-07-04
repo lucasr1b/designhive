@@ -4,10 +4,23 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { signup } from '../../actions/session';
 import { useSession } from '@/contexts/SessionContext';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const SignupPage = () => {
+  const { session, setSession, sessionLoading } = useSession();
 
-  const { session } = useSession();
+  const { push } = useRouter();
+
+  useEffect(() => {
+    if (session?.isLoggedIn) {
+      push('/');
+    }
+  }, [session, push]);
+
+  if (session?.isLoggedIn || sessionLoading) {
+    return null;
+  }
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -15,9 +28,9 @@ const SignupPage = () => {
 
     try {
       const user = await signup(formData);
-      console.log('User created', user);
+      setSession(user);
     } catch (err: any) {
-      console.log(err);
+      console.log(err.message);
     }
   }
 
