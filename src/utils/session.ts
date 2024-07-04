@@ -13,3 +13,9 @@ export const getSessionWithMethods = async () => { // get .destroy(), .save(), .
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
   return session;
 };
+
+export async function updateSession(newSessionData: SessionData) {
+  const session = await getSessionWithMethods();
+  Object.assign(session, newSessionData);
+  await session.save();
+}
