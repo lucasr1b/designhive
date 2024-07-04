@@ -12,7 +12,7 @@ const config: Config = {
         'primary': '#2A2A28',
         'base': {
           '100': '#AAAAAA',
-          '200': '#8C8C8C',
+          '200': '#686f7a',
         },
         'accent': {
           '100': '#F2F2F2',
