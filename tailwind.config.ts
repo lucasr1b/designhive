@@ -18,6 +18,7 @@ const config: Config = {
           '100': '#F2F2F2',
           '200': '#E5E5E5',
           '300': '#EEEEEE',
+          '400': '#E0E0E0',
         },
       },
     },
