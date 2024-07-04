@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
-      .select('_id authorId type content likeCount replyCount createdAt')
+      .select('_id authorId type content likes likeCount replyCount createdAt')
       .lean();
 
     return NextResponse.json(posts);

@@ -8,7 +8,7 @@ export async function GET(request: NextRequest, { params }: { params: { id: stri
       return NextResponse.json({ error: 'Invalid user ID' }, { status: 400 });
     }
 
-    const user = await User.findById(params.id).select('name pfp').lean();
+    const user = await User.findById(params.id).select('_id name pfp').lean();
     if (!user) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }

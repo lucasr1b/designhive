@@ -6,6 +6,7 @@ interface IPost extends Document {
   content: string;
   likeCount: number;
   replyCount: number;
+  likes: ObjectId[];
 }
 
 const PostSchema: Schema<IPost> = new Schema({
@@ -29,6 +30,12 @@ const PostSchema: Schema<IPost> = new Schema({
     type: Number,
     default: 0
   },
+  likes: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'User'
+    }
+  ]
 }, {
   timestamps: true,
 });

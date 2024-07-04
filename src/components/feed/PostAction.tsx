@@ -4,13 +4,14 @@ type PostActionProps = {
   icon: React.ReactNode;
   count?: number;
   tooltip: string;
+  color?: string;
   hoverColor?: string;
 };
 
-const PostAction = ({ icon, count, tooltip, hoverColor = 'black' }: PostActionProps) => {
+const PostAction = ({ icon, count, tooltip, color, hoverColor = 'black' }: PostActionProps) => {
   return (
     <div className='relative group'>
-      <div className={`flex items-center justify-center gap-2 cursor-pointer text-base-200 hover:text-${hoverColor} transition duration-200`}>
+      <div className={`flex items-center justify-center gap-2 cursor-pointer text-base-200 text-${color ? color : 'black'} hover:text-${hoverColor} transition duration-200`}>
         <div className='transform group-hover:scale-110 transition duration-200'>
           {icon}
         </div>

@@ -42,7 +42,14 @@ const usePosts = (feedType: string) => {
           }
 
           const { data: userData } = await axios.get(`/api/user/${post.authorId}`);
-          return { ...post, authorName: userData.name, authorPfp: userData.pfp };
+          const initialLiked = post.likes.includes(userData._id);
+
+          return {
+            ...post,
+            authorName: userData.name,
+            authorPfp: userData.pfp,
+            initialLiked
+          };
         })
       );
 

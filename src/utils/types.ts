@@ -16,6 +16,7 @@ export interface Post {
   authorId: string;
   type: string;
   content: string;
+  likes: string[]
   likeCount: number;
   replyCount: number;
   createdAt: string;
@@ -24,4 +25,5 @@ export interface Post {
 export interface PostUserData extends Post {
   authorName: string;
   authorPfp: string;
+  initialLiked: boolean;
 }
