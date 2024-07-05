@@ -5,7 +5,7 @@ import generateUsername from '../utils/generateUsername';
 import { connectToDB } from '@/backend/utils/connectToDB';
 
 export const signup = async (formData: FormData) => {
-  connectToDB();
+  await connectToDB();
   const session = await getSessionWithMethods();
 
   const { fname, email, password, cpassword } = Object.fromEntries(formData);
@@ -51,7 +51,7 @@ export const signup = async (formData: FormData) => {
 }
 
 export const login = async (formData: FormData) => {
-  connectToDB();
+  await connectToDB();
   const session = await getSessionWithMethods();
 
   const { username, password } = Object.fromEntries(formData);
