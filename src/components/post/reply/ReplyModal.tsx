@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import axios from 'axios';
 import { useSession } from '@/contexts/SessionContext';
 import { RiCloseLine } from '@remixicon/react';
@@ -9,15 +9,15 @@ import ProfilePicture from '@/components/atomic/ProfilePicture';
 interface ReplyModalProps {
   post: PostWithUserData;
   isOpen: boolean;
-  onClose: (e: React.FormEvent) => void;
+  onClose: (e: React.MouseEvent | React.FormEvent) => void;
   onReply: () => void;
 }
 
-const ReplyModal = ({ post, isOpen, onClose, onReply }: ReplyModalProps) => {
+const ReplyModal: React.FC<ReplyModalProps> = ({ post, isOpen, onClose, onReply }) => {
   const { session } = useSession();
   const replyRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleReply = async (e: any) => {
+  const handleReply = async (e: React.FormEvent) => {
     e.preventDefault();
     const reply = replyRef.current?.value || '';
     if (!reply.trim()) return;
@@ -38,12 +38,16 @@ const ReplyModal = ({ post, isOpen, onClose, onReply }: ReplyModalProps) => {
     }
   }
 
+  const handleOverlayClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onClose(e);
+  };
 
   if (!isOpen) return null;
 
   return (
     <>
-      <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={(e) => onClose(e)} />
+      <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={handleOverlayClick} />
       <div className='fixed z-50 flex flex-col w-full max-w-md h-auto rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white cursor-default select-none' onClick={(e) => e.stopPropagation()}>
         <div className='flex flex-row items-center h-14 px-4'>
           <button type='button' onClick={(e) => onClose(e)} className='rounded-full cursor-pointer p-2 hover:bg-accent-100'>

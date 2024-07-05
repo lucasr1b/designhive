@@ -1,11 +1,9 @@
 'use client';
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
-import axios from 'axios';
-import { PostWithUserData, ReplyWithUserData } from '@/utils/types';
-import PostItem from '@/components/feed/post/PostItem';
-import ReplyItem from '@/components/post/ReplyItem';
 import AppLayout from '@/components/atomic/AppLayout';
+import PostItem from '@/components/post/PostItem';
+import { PostWithUserData, ReplyWithUserData } from '@/utils/types';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 
 const PostPage = ({ params }: { params: { id: string } }) => {
   const [post, setPost] = useState<PostWithUserData | null>(null);
@@ -43,14 +41,8 @@ const PostPage = ({ params }: { params: { id: string } }) => {
 
   return (
     <AppLayout>
-      <div className='flex flex-1 flex-col gap-6 p-2'>
-        <PostItem {...post} />
-        <div className='mt-8'>
-          <h2 className='text-xl font-semibold mb-4'>Replies</h2>
-          {replies.map((reply) => (
-            <ReplyItem key={reply._id} {...reply} />
-          ))}
-        </div>
+      <div className='flex flex-1 flex-col gap-2 p-2'>
+        <PostItem post={post} replies={replies} />
       </div>
     </AppLayout>
   );

@@ -1,9 +1,9 @@
 'use client';
 import { useState, useRef, useCallback } from 'react';
 import NewPost from './post/new/NewPost';
-import PostItem from './post/PostItem';
 import usePosts from '@/hooks/usePosts';
 import { PostWithUserData } from '@/utils/types';
+import FeedPostItem from './post/FeedPostItem';
 
 const Feed = () => {
   const [activeFeed, setActiveFeed] = useState('forYou');
@@ -46,7 +46,7 @@ const Feed = () => {
       <NewPost onPost={handleNewPost} />
       {posts.map((post, index) => (
         <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
-          <PostItem {...post} />
+          <FeedPostItem post={post} />
         </div>
       ))}
       {loading && <p>Loading...</p>}
