@@ -1,6 +1,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
 import { getSession, updateSession } from '@/utils/session';
+import { S3Client, PutObjectCommand, PutObjectCommandInput } from '@aws-sdk/client-s3';
+
+const s3 = new S3Client({
+  region: process.env.AWS_REGION,
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,16 +23,41 @@ export async function POST(request: NextRequest) {
     const name = formData.get('fname') as string;
     const username = formData.get('username') as string;
     const bio = formData.get('bio') as string;
+    const file = formData.get('pfp') as File | null;
 
     if (!name || !username) {
       return NextResponse.json({ error: 'Name and username are required' }, { status: 400 });
     }
 
+    let pfpUrl = session.pfp;
+    if (file) {
+      try {
+        const arrayBuffer = await file.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const fileName = `${session._id}-${Date.now()}-${file.name}`;
+
+        const uploadParams: PutObjectCommandInput = {
+          Bucket: process.env.AWS_BUCKET_NAME!,
+          Key: fileName,
+          Body: buffer,
+          ContentType: file.type,
+        };
+
+        const command = new PutObjectCommand(uploadParams);
+        await s3.send(command);
+
+        pfpUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${fileName}`;
+      } catch (err) {
+        console.error('Error uploading file:', err);
+        return NextResponse.json({ error: 'Error uploading file' }, { status: 500 });
+      }
+    }
+
     const updatedUser = await User.findByIdAndUpdate(
       session._id,
-      { name, username, bio },
+      { name, username, bio, pfp: pfpUrl || session.pfp },
       { new: true, runValidators: true }
-    ).select('name username bio');
+    ).select('name username bio pfp');
 
     if (!updatedUser) {
       return NextResponse.json({ error: 'User not found' }, { status: 404 });
@@ -33,7 +67,8 @@ export async function POST(request: NextRequest) {
       ...session,
       name: updatedUser.name,
       username: updatedUser.username,
-      bio: updatedUser.bio
+      bio: updatedUser.bio,
+      pfp: updatedUser.pfp,
     });
 
     return NextResponse.json(updatedUser);

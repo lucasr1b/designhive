@@ -6,6 +6,8 @@ import { useSession } from '@/contexts/SessionContext';
 import { useState, useEffect, useRef, RefObject } from 'react';
 import { createPortal } from 'react-dom';
 import LogoutModal from './LogoutModal';
+import Image from 'next/image';
+import Link from 'next/link';
 
 const Sidebar = () => {
   const { session } = useSession();
@@ -53,7 +55,10 @@ const Sidebar = () => {
     <>
       <div className='w-60'>
         <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60 py-3'>
-          <h1 className='text-2xl font-bold ml-4 mt-4'>DesignHive.</h1>
+          <Link href='/' className='flex flex-row items-center gap-1 ml-4 mt-4'>
+            <Image src='/logo.svg' alt='DesignHive Logo' width={50} height={50} />
+            <h1 className='text-2xl font-bold'>DesignHive.</h1>
+          </Link>
           <Button large shadow className='mt-8 ml-4'>Post</Button>
           <div className='flex flex-col justify-start w-full mt-4 gap-2'>
             {sidebarItems.map((item, i) => (
@@ -66,7 +71,9 @@ const Sidebar = () => {
                 className='flex flex-row items-center gap-2 w-full rounded-full py-2 px-3 cursor-pointer hover:bg-accent-100'
                 onClick={handleProfileClick}
               >
-                <div className='flex-shrink-0 bg-gray-400 w-10 h-10 rounded-full overflow-hidden'></div>
+                <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
+                  <img src={session.pfp} alt={session.name} className='w-full h-full rounded-full' />
+                </div>
                 <div className='flex flex-col justify-center overflow-hidden'>
                   <span className='font-medium truncate'>{session.name}</span>
                   <span className='text-base-200 truncate'>@{session.username}</span>

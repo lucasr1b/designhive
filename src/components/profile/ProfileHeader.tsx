@@ -26,7 +26,9 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdat
       {isModalOpen && <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={toggleModal} />}
       <div className='flex flex-col gap-4'>
         <div className='flex items-end justify-between'>
-          <div className='bg-gray-400 h-32 w-32 rounded-full' />
+          <div className='flex-shrink-0 w-32 h-32 rounded-full overflow-hidden'>
+            <img src={user.pfp} alt={user.name} className='w-full h-full rounded-full' />
+          </div>
           {isProfileOwner ? (
             <Button small outline onClick={toggleModal}>Edit profile</Button>
           ) : user.isFollowing ? (

@@ -1,26 +1,27 @@
-import { RiCloseLine } from '@remixicon/react';
+import { RiCameraFill, RiCloseLine, RiUploadCloud2Line } from '@remixicon/react';
 import Button from '../atomic/Button';
 import axios from 'axios';
 import { useState } from 'react';
 import { User } from '@/utils/types';
 
 type EditProfileModalProps = {
-  user: {
-    name: string;
-    username: string;
-    bio: string;
-  },
+  user: User;
   onClose: () => void;
   onUpdate: (updatedUser: User) => void;
 };
 
 const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) => {
   const [error, setError] = useState<string | null>(null);
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
 
   const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError(null);
     const formData = new FormData(e.currentTarget);
+
+    if (profilePicture) {
+      formData.append('pfp', profilePicture);
+    }
 
     try {
       const response = await axios.post<User>('/api/user/update', formData);
@@ -42,7 +43,13 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
       </div>
       <hr />
       <div className='flex flex-col gap-2 p-4'>
-        <div className='bg-gray-400 h-24 w-24 rounded-full' />
+        <div className='flex-shrink-0 w-24 h-24 rounded-full overflow-hidden relative'>
+          <img src={user.pfp || '/default-pfp.png'} alt={user.name} className='w-full h-full object-cover rounded-full brightness-50' />
+          <input type='file' accept='image/*' className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10' onChange={(e) => setProfilePicture(e.target.files?.[0] || null)} />
+          <div className='absolute inset-0 flex items-center justify-center cursor-pointer'>
+            <RiCameraFill className='text-white w-8 h-8' />
+          </div>
+        </div>
         <div className='flex flex-col gap-2 mb-4'>
           <label htmlFor='fname' className='font-medium'>Name</label>
           <input name='fname' className='border border-accent-200 rounded-xl h-12 px-4 text-sm' defaultValue={user.name} />

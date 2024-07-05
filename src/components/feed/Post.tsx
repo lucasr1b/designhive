@@ -33,7 +33,9 @@ const Post = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount
   return (
     <div>
       <div className='flex gap-2'>
-        <div className='bg-gray-400 rounded-full w-6 h-6 shrink-0'></div>
+        <div className='flex-shrink-0 w-6 h-6 rounded-full overflow-hidden'>
+          <img src={authorPfp} alt={authorName} className='w-full h-full rounded-full' />
+        </div>
         <div className='flex flex-col gap-2 w-full'>
           <div className='flex flex-row items-center'>
             <span className='font-semibold'>{authorName}</span>
