@@ -54,11 +54,9 @@ const ProfilePageContent = ({ username, onUsernameChange, isProfileOwner }: Prof
 
   const handleUpdateUser = (updatedUser: Partial<User>) => {
     setUser(prevUser => prevUser ? { ...prevUser, ...updatedUser } : null);
-    if (updatedUser.username && updatedUser.username !== username) {
-      if (isProfileOwner) {
-        updateSession({ username: updatedUser.username });
-        if (onUsernameChange) onUsernameChange(updatedUser.username);
-      }
+    updateSession(updatedUser);
+    if (updatedUser.username && updatedUser.username !== username) { // improve logic
+      if (onUsernameChange) onUsernameChange(updatedUser.username);
     }
   };
 
