@@ -1,6 +1,6 @@
 import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 
-interface IPost extends Document {
+export interface IPost extends Document {
   authorId: ObjectId;
   type: string;
   content?: string;
@@ -13,6 +13,7 @@ interface IPost extends Document {
 const PostSchema: Schema<IPost> = new Schema({
   authorId: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true
   },
   type: {

@@ -54,6 +54,7 @@ const usePosts = (feedType: string) => {
           return {
             ...post,
             authorName: userData.name,
+            authorUsername: userData.username,
             authorPfp: userData.pfp,
             initialLiked
           };

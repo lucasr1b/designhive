@@ -6,7 +6,7 @@ type PostActionProps = {
   tooltip: string;
   color?: string;
   hoverColor?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent) => void;
 };
 
 const PostAction: React.FC<PostActionProps> = ({

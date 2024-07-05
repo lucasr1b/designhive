@@ -36,7 +36,8 @@ const NewPost = ({ onPost }: NewPostProps) => {
 
       const newPostData: PostWithUserData = {
         ...data,
-        authorName: session?.name || '',
+        authorName: session?.name || '', // is '' needed ??
+        authorUsername: session?.username || '',
         authorPfp: session?.pfp || '',
       };
 
@@ -70,7 +71,7 @@ const NewPost = ({ onPost }: NewPostProps) => {
         <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
           <img src={session?.pfp} alt={session?.name} className='w-full h-full object-cover' />
         </div>
-        <div className='flex flex-col pl-4 pt-2 w-full'>
+        <div className='flex flex-col pl-3 pt-2 w-full'>
           <textarea
             ref={postRef}
             className='text-xl outline-none w-full h-auto max-h-96 resize-none placeholder:text-base-200'

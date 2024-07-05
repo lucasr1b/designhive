@@ -36,6 +36,24 @@ export interface Post {
 
 export interface PostWithUserData extends Post {
   authorName: string;
+  authorUsername: string;
+  authorPfp: string;
+  initialLiked: boolean;
+}
+
+export interface Reply {
+  _id: string;
+  postId: string;
+  authorId: string;
+  content: string;
+  likes: string[];
+  likeCount: number;
+  createdAt: Date;
+}
+
+export interface ReplyWithUserData extends Reply {
+  authorName: string;
+  authorUsername: string;
   authorPfp: string;
   initialLiked: boolean;
 }

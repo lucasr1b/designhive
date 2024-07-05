@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
 import { getSession } from '@/utils/session';
+import { isValidSession } from '@/backend/utils/helpers';
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getSession();
 
-    if (!session?.isLoggedIn) {
+    if (!isValidSession(session)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

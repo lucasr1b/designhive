@@ -3,6 +3,7 @@ import User from '@/backend/models/User';
 import { getSession, updateSession } from '@/utils/session';
 import { S3Client, PutObjectCommand, PutObjectCommandInput } from '@aws-sdk/client-s3';
 import sharp from 'sharp';
+import { isValidSession } from '@/backend/utils/helpers';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -16,7 +17,7 @@ export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
 
-    if (!session?.isLoggedIn) {
+    if (!isValidSession(session)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
@@ -83,7 +84,6 @@ export async function POST(request: NextRequest) {
       ...session,
       name: updatedUser.name,
       username: updatedUser.username,
-      bio: updatedUser.bio,
       pfp: updatedUser.pfp,
     });
 

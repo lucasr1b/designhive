@@ -2,11 +2,13 @@ import { NextResponse, NextRequest } from 'next/server';
 import Post from '@/backend/models/Post';
 import { getSession } from '@/utils/session';
 import mongoose, { ObjectId } from 'mongoose';
+import { isValidSession } from '@/backend/utils/helpers';
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getSession();
-    if (!session?.isLoggedIn) {
+
+    if (!isValidSession(session)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

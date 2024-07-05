@@ -3,6 +3,7 @@ import Post from '@/backend/models/Post';
 import { getSession } from '@/utils/session';
 import sharp from 'sharp';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { isValidSession } from '@/backend/utils/helpers';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -15,7 +16,8 @@ const s3 = new S3Client({
 export async function POST(request: NextRequest) {
   try {
     const session = await getSession();
-    if (!session?.isLoggedIn) {
+
+    if (!isValidSession(session)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 

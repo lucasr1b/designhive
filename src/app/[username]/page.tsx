@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation';
 import ProfilePageContent from '@/components/profile/ProfilePageContent';
 import AppLayout from '@/components/atomic/AppLayout';
 
-const UserProfilePage = ({ params }: { params: { username: string[] } }) => {
+const UserProfilePage = ({ params }: { params: { username: string } }) => {
   const { session } = useSession();
   const [isProfileOwner, setIsProfileOwner] = useState(false);
-  const [username, setUsername] = useState(params.username[0]);
+  const [username, setUsername] = useState(params.username);
   const router = useRouter();
 
   useEffect(() => {
