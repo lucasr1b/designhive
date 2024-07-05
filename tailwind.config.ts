@@ -22,11 +22,22 @@ const config: Config = {
         },
       },
     },
+    keyframes: {
+      fadeIn: {
+        '0%': { opacity: '0' },
+        '100%': { opacity: '1' },
+      },
+    },
+    animation: {
+      fadeIn: 'fadeIn 0.2s ease-in-out forwards',
+    },
   },
   safelist: [
     'hover:text-black',
     'hover:text-red-500',
     'hover:text-red-600',
+    'hover:text-yellow-500',
+    'text-base-200',
     'text-red-500',
     'border-blue-500',
   ],

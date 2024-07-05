@@ -3,7 +3,8 @@ import mongoose, { Document, ObjectId, Schema } from 'mongoose';
 interface IPost extends Document {
   authorId: ObjectId;
   type: string;
-  content: string;
+  content?: string;
+  designFile?: string;
   likeCount: number;
   replyCount: number;
   likes: ObjectId[];
@@ -20,7 +21,9 @@ const PostSchema: Schema<IPost> = new Schema({
   },
   content: {
     type: String,
-    required: true
+  },
+  designFile: {
+    type: String
   },
   likeCount: {
     type: Number,

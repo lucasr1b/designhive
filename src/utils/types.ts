@@ -27,6 +27,7 @@ export interface Post {
   authorId: string;
   type: string;
   content: string;
+  designFile?: string;
   likes: string[]
   likeCount: number;
   replyCount: number;

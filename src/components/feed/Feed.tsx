@@ -1,7 +1,7 @@
 'use client';
 import { useState, useRef, useCallback } from 'react';
-import NewPost from './NewPost';
-import PostItem from './PostItem';
+import NewPost from './post/new/NewPost';
+import PostItem from './post/PostItem';
 import usePosts from '@/hooks/usePosts';
 import { PostWithUserData } from '@/utils/types';
 
