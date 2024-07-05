@@ -3,6 +3,8 @@ import Post from '@/backend/models/Post';
 import { getSession } from '@/utils/session';
 import { isValidSession } from '@/backend/utils/helpers';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const session = await getSession();
