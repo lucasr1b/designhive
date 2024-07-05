@@ -61,7 +61,7 @@ const NewPost = ({ onPost }: NewPostProps) => {
   };
 
   return (
-    <div className='border rounded-xl border-accent-200 w-full p-4'>
+    <div className='border rounded-xl border-accent-200 w-full p-4 select-none'>
       <div className='flex gap-2 mb-2'>
         <Tab active={postType === 'text'} onClick={() => setPostType('text')}>Text</Tab>
         <Tab active={postType === 'design'} onClick={() => setPostType('design')}>Design</Tab>

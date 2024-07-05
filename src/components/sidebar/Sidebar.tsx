@@ -53,7 +53,7 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className='w-60'>
+      <div className='w-60 select-none'>
         <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60 py-3 mt-2'>
           <Link href='/' className='flex flex-row items-center gap-1 w-full'>
             <Image src='/logo.svg' alt='DesignHive Logo' width={52} height={52} />
@@ -68,7 +68,7 @@ const Sidebar = () => {
           {session && session.isLoggedIn && (
             <div className='w-full mt-auto mb-6' ref={profileRef}>
               <div
-                className='flex flex-row items-center gap-2 w-full rounded-full py-2 px-3 cursor-pointer select-none hover:bg-accent-100'
+                className='flex flex-row items-center gap-2 w-full rounded-full py-2 px-3 cursor-pointer hover:bg-accent-100'
                 onClick={handleProfileClick}
               >
                 <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>

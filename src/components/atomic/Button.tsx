@@ -20,7 +20,7 @@ const Button = ({ children, type = 'button', onClick, className = '', xsmall, sm
   return (
     <button
       type={type}
-      className={`flex items-center justify-center gap-2 rounded-full font-medium text-sm h-10 ${sizeClass} ${baseClass} ${shadowClass} ${className}`}
+      className={`flex items-center justify-center gap-2 rounded-full select-none font-medium text-sm h-10 ${sizeClass} ${baseClass} ${shadowClass} ${className}`}
       onClick={onClick}
     >
       {children}

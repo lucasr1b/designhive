@@ -72,7 +72,7 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
           <textarea name='bio' className='border border-accent-200 rounded-xl p-4 text-sm resize-none' placeholder='Nothing here yet...' defaultValue={user.bio} />
         </div>
       </div>
-      {error && <p className="text-red-500 text-sm px-4 pb-4">{error}</p>}
+      {error && <p className='text-red-500 text-sm px-4 pb-4'>{error}</p>}
     </form>
   );
 };

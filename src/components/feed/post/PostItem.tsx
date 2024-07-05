@@ -21,14 +21,21 @@ const PostItem: React.FC<PostWithUserData> = ({
   const [liked, setLiked] = useState(initialLiked);
 
   const handleLike = useCallback(async () => {
+    const previousLiked = liked;
+    const previousLikeCount = likeCount;
+
+    setLiked(!liked);
+    setLikeCount(prev => liked ? prev - 1 : prev + 1);
+
     try {
       const { data } = await axios.post(`/api/post/${_id}/like`);
       setLikeCount(data.likeCount);
-      setLiked((prev) => !prev);
     } catch (error) {
       console.error('Error liking/unliking post:', error);
+      setLiked(previousLiked);
+      setLikeCount(previousLikeCount);
     }
-  }, [_id]);
+  }, [_id, liked, likeCount]);
 
   const renderContent = () => {
     if (type === 'design') {
@@ -36,8 +43,8 @@ const PostItem: React.FC<PostWithUserData> = ({
         <div>
           {content ? <p className=''>{content}</p> : <div className='mt-4' />}
           <div className='relative mt-2'>
-            <img src={designFile} alt='Design' className='w-full h-auto rounded-lg cursor-pointer' />
-            <div className="flex flex-row gap-2 items-center absolute top-2 right-2 bg-white text-xs font-bold px-2 py-1 rounded">
+            <img src={designFile} alt='Design' className='w-full h-auto rounded-lg cursor-pointer select-none' />
+            <div className='flex flex-row gap-2 items-center absolute top-2 right-2 bg-white text-xs font-bold px-2 py-1 rounded select-none'>
               <RiSparkling2Fill size={12} /> DESIGN
             </div>
           </div>
@@ -54,7 +61,7 @@ const PostItem: React.FC<PostWithUserData> = ({
     <div className='bg-white rounded-lg border border-accent-200 p-4'>
       <div className='flex'>
         <div className='flex-shrink-0 mr-3'>
-          <img src={authorPfp} alt={authorName} className='w-10 h-10 rounded-full' />
+          <img src={authorPfp} alt={authorName} className='w-10 h-10 rounded-full select-none' />
         </div>
         <div className='flex-grow'>
           <div className='flex items-center'>

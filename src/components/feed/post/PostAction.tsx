@@ -21,7 +21,7 @@ const PostAction: React.FC<PostActionProps> = ({
 
   return (
     <div
-      className="relative inline-flex items-center gap-2 cursor-pointer"
+      className='relative inline-flex items-center gap-2 cursor-pointer select-none'
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={onClick}
@@ -40,7 +40,7 @@ const PostAction: React.FC<PostActionProps> = ({
       </div>
       {isHovering && (
         <div
-          className="absolute top-full mt-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 font-medium text-white text-xs rounded px-2 py-1 opacity-0 animate-fadeIn"
+          className='absolute top-full mt-2 left-1/2 transform -translate-x-1/2 whitespace-nowrap bg-gray-800 font-medium text-white text-xs rounded px-2 py-1 opacity-0 animate-fadeIn'
         >
           {tooltip}
         </div>

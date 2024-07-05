@@ -39,7 +39,7 @@ const UploadDesign = ({ setDesignFile, designPreview, setDesignPreview }: Upload
   };
 
   const handleFile = (file: File) => {
-    if (file && (file.type === "image/jpeg" || file.type === "image/png")) {
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       setDesignFile(file);
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -47,7 +47,7 @@ const UploadDesign = ({ setDesignFile, designPreview, setDesignPreview }: Upload
       };
       reader.readAsDataURL(file);
     } else {
-      alert("Please upload a JPEG or PNG image.");
+      alert('Please upload a JPEG or PNG image.');
     }
   };
 
