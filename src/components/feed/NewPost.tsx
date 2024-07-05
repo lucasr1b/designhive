@@ -5,13 +5,21 @@ import { RiImageAddLine, RiUploadLine, RiUserSmileLine } from '@remixicon/react'
 import Tab from '../atomic/Tab';
 import FileUpload from '../atomic/FileUpload';
 import axios from 'axios';
+import { useSession } from '@/contexts/SessionContext';
+import { PostWithUserData } from '@/utils/types';
 
-const NewPost = () => {
+type NewPostProps = {
+  onPost: (newPost: PostWithUserData) => void;
+}
+
+const NewPost = ({ onPost }: NewPostProps) => {
   const postRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [postType, setPostType] = useState<'text' | 'design'>('text');
   const [dragActive, setDragActive] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+
+  const { session } = useSession();
 
   const handlePost = async () => {
     const postData = {
@@ -19,7 +27,24 @@ const NewPost = () => {
       content: postRef.current?.value,
     };
 
-    await axios.post('/api/post', postData);
+    try {
+      const { data } = await axios.post('/api/post', postData);
+
+      const newPostData: PostWithUserData = {
+        ...data,
+        authorName: session?.name,
+        authorPfp: session?.pfp, // is this good practice?
+      };
+
+      onPost(newPostData);
+      if (postRef.current) {
+        postRef.current.value = '';
+        adjustTextareaHeight();
+      }
+    } catch (error) {
+      console.error('Error creating post:', error);
+      // handle error logic
+    }
   }
 
   const adjustTextareaHeight = () => {
@@ -75,7 +100,10 @@ const NewPost = () => {
         </Tab>
       </div>
       <div className='flex w-full px-2 mt-6'>
-        <div className='bg-gray-400 w-10 h-10 shrink-0 rounded-full'></div>
+        <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
+          <img src={session?.pfp} alt={session?.name} className='w-full h-full object-cover' />
+          {/* Loading state */}
+        </div>
         <div className='flex flex-col pl-4 pt-2 w-full'>
           <textarea
             ref={postRef}

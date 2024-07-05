@@ -30,10 +30,10 @@ export interface Post {
   likes: string[]
   likeCount: number;
   replyCount: number;
-  createdAt: string;
+  createdAt: Date;
 }
 
-export interface PostUserData extends Post {
+export interface PostWithUserData extends Post {
   authorName: string;
   authorPfp: string;
   initialLiked: boolean;

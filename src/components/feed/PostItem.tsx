@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { RiChat1Line, RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiShare2Line } from '@remixicon/react';
 import PostAction from './PostAction';
 import React from 'react';
+import { formatPostDate } from '@/utils/formatDate';
 
 type PostProps = {
   _id: string;
@@ -12,11 +13,11 @@ type PostProps = {
   content: string;
   likeCount: number;
   replyCount: number;
-  createdAt: string;
+  createdAt: Date;
   initialLiked: boolean;
 };
 
-const Post = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount, createdAt, initialLiked }: PostProps) => {
+const PostItem = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount, createdAt, initialLiked }: PostProps) => {
   const [likes, setLikes] = useState(likeCount);
   const [liked, setLiked] = useState(initialLiked);
 
@@ -36,15 +37,22 @@ const Post = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount
         <div className='flex-shrink-0 w-6 h-6 rounded-full overflow-hidden'>
           <img src={authorPfp} alt={authorName} className='w-full h-full rounded-full' />
         </div>
-        <div className='flex flex-col gap-2 w-full'>
+        <div className='flex flex-col gap-1 w-full'>
           <div className='flex flex-row items-center'>
             <span className='font-semibold'>{authorName}</span>
-            <span className='text-base-200 ml-auto text-xs'>{createdAt} mins ago</span>
+            <span className='text-base-200 ml-auto text-xs'>{formatPostDate(createdAt)}</span>
           </div>
-          <div className='flex flex-col gap-4'>
-            <span className='text-lg'>{content}</span>
-            <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-200'></div>
-          </div>
+          {type === 'design' && (
+            <div className='flex flex-col gap-4'>
+              <span className='text-lg'>{content}</span>
+              <div className='bg-gray-400 h-96 w-full rounded-lg border border-accent-200'></div>
+            </div>
+          )}
+          {type === 'text' && (
+            <div className='flex'>
+              <span className='text-md'>{content}</span>
+            </div>
+          )}
           <div className='flex flex-row gap-8 mt-2'>
             <PostAction icon={<RiChat1Line />} count={replyCount} tooltip='Comment' />
             <div onClick={handleLike}>
@@ -65,4 +73,4 @@ const Post = ({ _id, authorName, authorPfp, type, content, likeCount, replyCount
   );
 };
 
-export default React.memo(Post);
+export default React.memo(PostItem);

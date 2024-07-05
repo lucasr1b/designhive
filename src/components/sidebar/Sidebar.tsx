@@ -54,9 +54,9 @@ const Sidebar = () => {
   return (
     <>
       <div className='w-60'>
-        <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60 py-3'>
-          <Link href='/' className='flex flex-row items-center gap-1 ml-4 mt-4'>
-            <Image src='/logo.svg' alt='DesignHive Logo' width={50} height={50} />
+        <div className='fixed top-0 h-full flex flex-col items-start gap-2 px-2 w-60 py-3 mt-4'>
+          <Link href='/' className='flex flex-row items-center gap-1 w-full'>
+            <Image src='/logo.svg' alt='DesignHive Logo' width={52} height={52} />
             <h1 className='text-2xl font-bold'>DesignHive.</h1>
           </Link>
           <Button large shadow className='mt-8 ml-4'>Post</Button>

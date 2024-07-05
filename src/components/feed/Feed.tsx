@@ -1,12 +1,13 @@
 'use client';
 import { useState, useRef, useCallback } from 'react';
 import NewPost from './NewPost';
-import Post from './Post';
+import PostItem from './PostItem';
 import usePosts from '@/hooks/usePosts';
+import { PostWithUserData } from '@/utils/types';
 
 const Feed = () => {
   const [activeFeed, setActiveFeed] = useState('forYou');
-  const { posts, loading, error, loadMore, hasMore } = usePosts(activeFeed);
+  const { posts, loading, error, loadMore, hasMore, addNewPost } = usePosts(activeFeed);
 
   const observer = useRef<IntersectionObserver>();
   const lastPostElementRef = useCallback(
@@ -25,12 +26,16 @@ const Feed = () => {
     if (feed !== activeFeed) setActiveFeed(feed);
   }, [activeFeed]);
 
+  const handleNewPost = (newPost: PostWithUserData) => {
+    addNewPost(newPost);
+  };
+
   const feedButtonClass = (feedType: string) => `
-    relative inline-block font-medium cursor-pointer
-    ${activeFeed === feedType
+  relative inline-block font-medium cursor-pointer
+  ${activeFeed === feedType
       ? 'font-semibold before:absolute before:left-0 before:right-0 before:-bottom-2 before:h-1 before:bg-black before:rounded-full'
       : 'text-base-200 hover:text-black'}
-  `;
+`;
 
   return (
     <div className='flex flex-1 flex-col gap-6'>
@@ -38,10 +43,10 @@ const Feed = () => {
         <h1 className={feedButtonClass('forYou')} onClick={() => changeFeed('forYou')}>For you</h1>
         <h1 className={feedButtonClass('following')} onClick={() => changeFeed('following')}>Following</h1>
       </div>
-      <NewPost />
+      <NewPost onPost={handleNewPost} />
       {posts.map((post, index) => (
         <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
-          <Post {...post} />
+          <PostItem {...post} />
         </div>
       ))}
       {loading && <p>Loading...</p>}

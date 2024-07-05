@@ -1,12 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import mongoose from 'mongoose';
 import { POSTS_PER_PAGE } from '@/utils/constants';
-import { Post, PostUserData } from '@/utils/types';
+import { Post, PostWithUserData } from '@/utils/types';
 import axios from 'axios';
 import { useSession } from '@/contexts/SessionContext';
 
 const usePosts = (feedType: string) => {
-  const [posts, setPosts] = useState<PostUserData[]>([]);
+  const [posts, setPosts] = useState<PostWithUserData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [page, setPage] = useState(1);
@@ -24,6 +24,10 @@ const usePosts = (feedType: string) => {
   useEffect(() => {
     hasMoreRef.current = hasMore;
   }, [hasMore]);
+
+  const addNewPost = useCallback((newPost: PostWithUserData) => {
+    setPosts(prevPosts => [newPost, ...prevPosts]);
+  }, []);
 
   const fetchPosts = useCallback(async (pageToFetch: number) => {
     if (loadingRef.current || !hasMoreRef.current || !session) return;
@@ -87,7 +91,7 @@ const usePosts = (feedType: string) => {
     }
   }, [fetchPosts, page, session]);
 
-  return { posts, loading, error, loadMore, hasMore };
+  return { posts, loading, error, loadMore, hasMore, addNewPost };
 };
 
 export default usePosts;
