@@ -7,6 +7,7 @@ import { useRef, useState } from 'react';
 import Button from '../../../atomic/Button';
 import Tab from '../../../atomic/Tab';
 import UploadDesign from './UploadDesign';
+import ProfilePicture from '@/components/atomic/ProfilePicture';
 
 type NewPostProps = {
   onPost: (newPost: PostWithUserData) => void;
@@ -68,9 +69,7 @@ const NewPost = ({ onPost }: NewPostProps) => {
         <Tab active={postType === 'design'} onClick={() => setPostType('design')}>Design</Tab>
       </div>
       <div className='flex w-full px-2 mt-6'>
-        <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
-          <img src={session?.pfp} alt={session?.name} className='w-full h-full object-cover' />
-        </div>
+        <ProfilePicture src={session?.pfp!} />
         <div className='flex flex-col pl-3 pt-2 w-full'>
           <textarea
             ref={postRef}

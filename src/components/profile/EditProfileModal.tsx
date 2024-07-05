@@ -57,7 +57,7 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
       <hr />
       <div className='flex flex-col gap-2 p-4'>
         <div className='flex-shrink-0 w-24 h-24 rounded-full overflow-hidden relative'>
-          <img src={profilePicturePreview} alt={user.name} className='w-full h-full object-cover rounded-full brightness-50' />
+          <img src={profilePicturePreview!} alt={user.name} className='w-full h-full object-cover rounded-full brightness-50' />
           <input type='file' accept='image/*' className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10' onChange={handleProfilePictureChange} />
           <div className='absolute inset-0 flex items-center justify-center cursor-pointer'>
             <RiCameraFill className='text-white w-8 h-8' />

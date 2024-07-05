@@ -2,6 +2,7 @@ import { useState } from 'react';
 import Button from '../atomic/Button';
 import EditProfileModal from './EditProfileModal';
 import { User } from '@/utils/types';
+import ProfilePicture from '../atomic/ProfilePicture';
 
 type ProfileHeaderProps = {
   user: User;
@@ -26,9 +27,7 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdat
       {isModalOpen && <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={toggleModal} />}
       <div className='flex flex-col gap-4'>
         <div className='flex items-end justify-between'>
-          <div className='flex-shrink-0 w-32 h-32 rounded-full overflow-hidden'>
-            <img src={user.pfp} alt={user.name} className='w-full h-full rounded-full' />
-          </div>
+          <ProfilePicture src={user.pfp} className='w-32 h-32' />
           {isProfileOwner ? (
             <Button small outline onClick={toggleModal}>Edit profile</Button>
           ) : user.isFollowing ? (

@@ -8,6 +8,7 @@ import { createPortal } from 'react-dom';
 import LogoutModal from './LogoutModal';
 import Image from 'next/image';
 import Link from 'next/link';
+import ProfilePicture from '../atomic/ProfilePicture';
 
 const Sidebar = () => {
   const { session } = useSession();
@@ -71,9 +72,7 @@ const Sidebar = () => {
                 className='flex flex-row items-center gap-2 w-full rounded-full py-2 px-3 cursor-pointer hover:bg-accent-100'
                 onClick={handleProfileClick}
               >
-                <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
-                  <img src={session.pfp} alt={session.name} className='w-full h-full rounded-full' />
-                </div>
+                <ProfilePicture src={session.pfp!} />
                 <div className='flex flex-col flex-shrink justify-center overflow-hidden'>
                   <span className='font-semibold truncate leading-5'>{session.name}</span>
                   <span className='text-base-200 truncate leading-5'>@{session.username}</span>

@@ -7,6 +7,7 @@ import { PostWithUserData } from '@/utils/types';
 import ReplyModal from './ReplyModal';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import ProfilePicture from '@/components/atomic/ProfilePicture';
 
 const PostItem: React.FC<PostWithUserData> = (post) => {
   const [likeCount, setLikeCount] = useState(post.likeCount);
@@ -47,7 +48,7 @@ const PostItem: React.FC<PostWithUserData> = (post) => {
     setReplyCount(prevCount => prevCount + 1);
   };
 
-  const closeReplyModal = (e: React.MouseEvent) => {
+  const closeReplyModal = (e: any) => {
     e.stopPropagation();
     setIsReplyModalOpen(false);
   }
@@ -75,9 +76,7 @@ const PostItem: React.FC<PostWithUserData> = (post) => {
   return (
     <div onClick={handlePostClick} className='bg-white rounded-lg p-4 border border-accent-200 cursor-pointer select-none'>
       <div className='flex'>
-        <div className='flex-shrink-0 mr-3'>
-          <img src={post.authorPfp} alt={post.authorName} className='w-10 h-10 rounded-full' />
-        </div>
+        <ProfilePicture src={post.authorPfp} className='mr-3' />
         <div className='flex-grow'>
           <div className='flex items-center'>
             <h3 className='font-semibold select-text'>{post.authorName}</h3>

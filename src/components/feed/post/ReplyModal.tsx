@@ -4,11 +4,12 @@ import { useSession } from '@/contexts/SessionContext';
 import { RiCloseLine } from '@remixicon/react';
 import { PostWithUserData } from '@/utils/types';
 import Button from '@/components/atomic/Button';
+import ProfilePicture from '@/components/atomic/ProfilePicture';
 
 interface ReplyModalProps {
   post: PostWithUserData;
   isOpen: boolean;
-  onClose: (e: React.MouseEvent) => void;
+  onClose: (e: React.FormEvent) => void;
   onReply: () => void;
 }
 
@@ -16,12 +17,12 @@ const ReplyModal = ({ post, isOpen, onClose, onReply }: ReplyModalProps) => {
   const { session } = useSession();
   const replyRef = useRef<HTMLTextAreaElement>(null);
 
-  const handleReply = async (e: React.FormEvent) => {
+  const handleReply = async (e: any) => {
     e.preventDefault();
     const reply = replyRef.current?.value || '';
     if (!reply.trim()) return;
     onReply();
-    onClose();
+    onClose(e);
 
     try {
       await axios.post(`/api/post/${post._id}/reply`, { content: reply });
@@ -52,9 +53,7 @@ const ReplyModal = ({ post, isOpen, onClose, onReply }: ReplyModalProps) => {
         <form onSubmit={handleReply} className='px-4 pb-4'>
           <div className='mb-4 flex flex-col'>
             <div className='flex flex-row items-start relative'>
-              <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
-                <img src={session?.pfp} alt={session?.name} className='w-full h-full object-cover' />
-              </div>
+              <ProfilePicture src={post.authorPfp} />
               <div className='flex-grow ml-3 mb-2'>
                 <div className='flex items-center'>
                   <p className='font-bold cursor-text select-text'>{post.authorName}</p>
@@ -74,9 +73,7 @@ const ReplyModal = ({ post, isOpen, onClose, onReply }: ReplyModalProps) => {
               <div className='absolute left-5 top-0 bottom-0 w-0.5 bg-accent-200'></div>
             </div>
             <div className='flex w-full mt-4 relative'>
-              <div className='flex-shrink-0 w-10 h-10 rounded-full overflow-hidden'>
-                <img src={session?.pfp} alt={session?.name} className='w-full h-full object-cover' />
-              </div>
+              <ProfilePicture src={session?.pfp!} />
               <div className='flex flex-col pl-3 pt-2 w-full'>
                 <textarea
                   ref={replyRef}
