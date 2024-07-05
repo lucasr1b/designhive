@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import User from '@/backend/models/User';
 import { getSession, updateSession } from '@/utils/session';
 import { S3Client, PutObjectCommand, PutObjectCommandInput } from '@aws-sdk/client-s3';
+import sharp from 'sharp';
 
 const s3 = new S3Client({
   region: process.env.AWS_REGION,
@@ -26,21 +27,36 @@ export async function POST(request: NextRequest) {
     const file = formData.get('pfp') as File | null;
 
     if (!name || !username) {
-      return NextResponse.json({ error: 'Name and username are required' }, { status: 400 });
+      return NextResponse.json({ message: 'Name and username are required' }, { status: 400 });
     }
 
     let pfpUrl = session.pfp;
+
     if (file) {
       try {
+        const allowedTypes = ['image/jpeg', 'image/png'];
+        if (!allowedTypes.includes(file.type)) {
+          return NextResponse.json({ message: 'Invalid file type only .png and .jpeg allowed' }, { status: 400 });
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          return NextResponse.json({ message: 'File size too large, max 5MB allowed' }, { status: 400 });
+        }
+
         const arrayBuffer = await file.arrayBuffer();
         const buffer = Buffer.from(arrayBuffer);
+
+        const compressedImageBuffer = await sharp(buffer)
+          .resize(400, 400, { fit: sharp.fit.inside, withoutEnlargement: true })
+          .toFormat('jpeg', { quality: 80 })
+          .toBuffer();
+
         const fileName = `${session._id}-${Date.now()}-${file.name}`;
 
         const uploadParams: PutObjectCommandInput = {
           Bucket: process.env.AWS_BUCKET_NAME!,
           Key: fileName,
-          Body: buffer,
-          ContentType: file.type,
+          Body: compressedImageBuffer,
+          ContentType: 'image/jpeg',
         };
 
         const command = new PutObjectCommand(uploadParams);
@@ -55,7 +71,7 @@ export async function POST(request: NextRequest) {
 
     const updatedUser = await User.findByIdAndUpdate(
       session._id,
-      { name, username, bio, pfp: pfpUrl || session.pfp },
+      { name, username, bio, pfp: pfpUrl },
       { new: true, runValidators: true }
     ).select('name username bio pfp');
 

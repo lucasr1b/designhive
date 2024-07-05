@@ -1,4 +1,4 @@
-import { RiCameraFill, RiCloseLine, RiUploadCloud2Line } from '@remixicon/react';
+import { RiCameraFill, RiCloseLine } from '@remixicon/react';
 import Button from '../atomic/Button';
 import axios from 'axios';
 import { useState } from 'react';
@@ -13,6 +13,7 @@ type EditProfileModalProps = {
 const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) => {
   const [error, setError] = useState<string | null>(null);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
+  const [profilePicturePreview, setProfilePicturePreview] = useState<string | null>(user.pfp);
 
   const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -32,10 +33,22 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
     }
   };
 
+  const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0] || null;
+    setProfilePicture(file);
+
+    if (file) {
+      const previewUrl = URL.createObjectURL(file);
+      setProfilePicturePreview(previewUrl);
+    } else {
+      setProfilePicturePreview(user.pfp);
+    }
+  };
+
   return (
     <form className='fixed z-50 flex flex-col w-96 h-auto rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white' onSubmit={handleUpdateProfile}>
       <div className='flex flex-row items-center gap-2 py-2 px-2'>
-        <button onClick={onClose} className='rounded-full cursor-pointer p-2 hover:bg-accent-100'>
+        <button type='button' onClick={onClose} className='rounded-full cursor-pointer p-2 hover:bg-accent-100'>
           <RiCloseLine />
         </button>
         <span className='text-lg font-medium'>Edit profile</span>
@@ -44,8 +57,8 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
       <hr />
       <div className='flex flex-col gap-2 p-4'>
         <div className='flex-shrink-0 w-24 h-24 rounded-full overflow-hidden relative'>
-          <img src={user.pfp || '/default-pfp.png'} alt={user.name} className='w-full h-full object-cover rounded-full brightness-50' />
-          <input type='file' accept='image/*' className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10' onChange={(e) => setProfilePicture(e.target.files?.[0] || null)} />
+          <img src={profilePicturePreview} alt={user.name} className='w-full h-full object-cover rounded-full brightness-50' />
+          <input type='file' accept='image/*' className='absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer z-10' onChange={handleProfilePictureChange} />
           <div className='absolute inset-0 flex items-center justify-center cursor-pointer'>
             <RiCameraFill className='text-white w-8 h-8' />
           </div>
