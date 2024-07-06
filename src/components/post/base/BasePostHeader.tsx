@@ -20,7 +20,7 @@ const BasePostHeader = ({ post, isDetailView }: BasePostHeaderProps) => {
   return (
     <div className='flex items-center'>
       <h3 className='font-semibold select-text'>{post.authorName}</h3>
-      <p className='text-sm text-gray-500 ml-auto select-text'>{formatPostDate(post.createdAt)}</p>
+      <p className='text-xs text-gray-500 ml-auto select-text'>{formatPostDate(post.createdAt)}</p>
     </div>
   );
 };

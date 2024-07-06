@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { RiChat1Line, RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiShare2Line } from '@remixicon/react';
-import PostAction from './BasePostAction';
+import PostAction from './actions/PostAction';
 import ClickWrapper from '@/components/atomic/ClickWrapper';
 import { PostWithUserData } from '@/utils/types';
 import ReplyModal from '../reply/ReplyModal';
