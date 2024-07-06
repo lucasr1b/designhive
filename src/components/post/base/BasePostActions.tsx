@@ -5,6 +5,7 @@ import PostAction from './BasePostAction';
 import ClickWrapper from '@/components/atomic/ClickWrapper';
 import { PostWithUserData } from '@/utils/types';
 import ReplyModal from '../reply/ReplyModal';
+import { useModal } from '@/contexts/ModalContext';
 
 interface BasePostActionsProps {
   post: PostWithUserData;
@@ -16,7 +17,8 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
   const [replyCount, setReplyCount] = useState(post.replyCount);
   const [likeCount, setLikeCount] = useState(post.likeCount);
   const [liked, setLiked] = useState(post.initialLiked);
-  const [isReplyModalOpen, setIsReplyModalOpen] = useState(false);
+
+  const { openModal } = useModal();
 
   const handleLike = useCallback(async () => {
     const previousLiked = liked;
@@ -36,7 +38,7 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
   }, [post._id, liked, likeCount]);
 
   const handleReply = () => {
-    setIsReplyModalOpen(true);
+    openModal('reply', { post, onReply });
   };
 
   const handleAddToHive = () => {
@@ -47,9 +49,8 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
     console.log('Share clicked');
   };
 
-  const handleReplied = () => {
+  const onReply = () => {
     setReplyCount(prevCount => prevCount + 1);
-    setIsReplyModalOpen(false);
   };
 
   return (
@@ -89,12 +90,6 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
           </ClickWrapper>
         </div>
       </div>
-      <ReplyModal
-        post={post}
-        isOpen={isReplyModalOpen}
-        onClose={() => setIsReplyModalOpen(false)}
-        onReply={handleReplied}
-      />
     </>
   );
 };

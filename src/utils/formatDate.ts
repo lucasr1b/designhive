@@ -5,5 +5,5 @@ export const formatPostDate = (date: Date) => {
 };
 
 export const formatFullPostDate = (date: Date) => {
-  return format(date, "h:mm a · MMM d, yyyy");
+  return format(date, 'h:mm a · MMM d, yyyy');
 };

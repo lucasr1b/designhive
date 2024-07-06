@@ -3,6 +3,7 @@ import Button from '../atomic/Button';
 import EditProfileModal from './EditProfileModal';
 import { User } from '@/utils/types';
 import ProfilePicture from '../atomic/ProfilePicture';
+import { useModal } from '@/contexts/ModalContext';
 
 type ProfileHeaderProps = {
   user: User;
@@ -13,23 +14,15 @@ type ProfileHeaderProps = {
 };
 
 const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdateUser }: ProfileHeaderProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const toggleModal = () => setIsModalOpen(!isModalOpen);
-
-  const handleUserUpdate = (updatedUser: Partial<User>) => {
-    onUpdateUser(updatedUser);
-    toggleModal();
-  };
+  const { openModal } = useModal();
 
   return (
     <>
-      {isModalOpen && <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={toggleModal} />}
       <div className='flex flex-col gap-4'>
         <div className='flex items-end justify-between'>
           <ProfilePicture src={user.pfp} className='w-32 h-32' />
           {isProfileOwner ? (
-            <Button small outline onClick={toggleModal}>Edit profile</Button>
+            <Button small outline onClick={() => openModal('editProfile', { user, onUpdateUser })}>Edit profile</Button>
           ) : user.isFollowing ? (
             <Button small outline onClick={unfollow}>Unfollow</Button>
           ) : (
@@ -45,12 +38,6 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdat
             <span className='text-base-200'><span className='text-black font-semibold'>{user.followerCount}</span> followers</span>
           </div>
         </div>
-        <EditProfileModal
-          user={user}
-          isOpen={isModalOpen}
-          onClose={toggleModal}
-          onUpdate={handleUserUpdate}
-        />
       </div>
     </>
   );

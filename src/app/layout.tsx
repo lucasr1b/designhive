@@ -3,8 +3,10 @@ import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from '@/contexts/SessionContext';
 import { connectToDB } from '@/backend/utils/connectToDB';
-import { DesignViewProvider } from '@/contexts/DesignViewContext';
-import PostDesignView from '@/components/post/PostDesignView';
+import PostDesignViewModal from '@/components/post/PostDesignViewModal';
+import { ModalProvider } from '@/contexts/ModalContext';
+import EditProfileModal from '@/components/profile/EditProfileModal';
+import ReplyModal from '@/components/post/reply/ReplyModal';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
@@ -24,12 +26,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <SessionProvider>
-        <DesignViewProvider>
+        <ModalProvider>
           <body className={dmSans.className}>
             {children}
-            <PostDesignView />
+            <PostDesignViewModal />
+            <EditProfileModal />
+            <ReplyModal />
           </body>
-        </DesignViewProvider>
+        </ModalProvider>
       </SessionProvider>
     </html>
   );
