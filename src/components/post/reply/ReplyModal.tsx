@@ -6,6 +6,7 @@ import { PostWithUserData } from '@/utils/types';
 import Button from '@/components/atomic/Button';
 import ProfilePicture from '@/components/atomic/ProfilePicture';
 import ClickWrapper from '@/components/atomic/ClickWrapper';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 interface ReplyModalProps {
   post: PostWithUserData;
@@ -17,6 +18,8 @@ interface ReplyModalProps {
 const ReplyModal: React.FC<ReplyModalProps> = ({ post, isOpen, onClose, onReply }) => {
   const { session } = useSession();
   const replyRef = useRef<HTMLTextAreaElement>(null);
+
+  useScrollLock(isOpen);
 
   const handleReply = async (e: React.FormEvent) => {
     e.preventDefault();

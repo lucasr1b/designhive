@@ -4,17 +4,21 @@ import axios from 'axios';
 import { useState } from 'react';
 import { User } from '@/utils/types';
 import CloseButton from '../atomic/CloseButton';
+import { useScrollLock } from '@/hooks/useScrollLock';
 
 type EditProfileModalProps = {
   user: User;
+  isOpen: boolean;
   onClose: () => void;
   onUpdate: (updatedUser: User) => void;
 };
 
-const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) => {
+const EditProfileModal = ({ user, isOpen, onClose, onUpdate }: EditProfileModalProps) => {
   const [error, setError] = useState<string | null>(null);
   const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const [profilePicturePreview, setProfilePicturePreview] = useState<string | null>(user.pfp);
+
+  useScrollLock(isOpen);
 
   const handleUpdateProfile = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -45,6 +49,8 @@ const EditProfileModal = ({ user, onClose, onUpdate }: EditProfileModalProps) =>
       setProfilePicturePreview(user.pfp);
     }
   };
+
+  if (!isOpen) return null;
 
   return (
     <form className='fixed z-50 flex flex-col w-96 h-auto rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white' onSubmit={handleUpdateProfile}>

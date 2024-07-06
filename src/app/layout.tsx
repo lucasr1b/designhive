@@ -3,6 +3,8 @@ import { DM_Sans } from 'next/font/google';
 import './globals.css';
 import { SessionProvider } from '@/contexts/SessionContext';
 import { connectToDB } from '@/backend/utils/connectToDB';
+import { DesignViewProvider } from '@/contexts/DesignViewContext';
+import PostDesignView from '@/components/post/PostDesignView';
 
 const dmSans = DM_Sans({ subsets: ['latin'] });
 
@@ -22,7 +24,12 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <SessionProvider>
-        <body className={dmSans.className}>{children}</body>
+        <DesignViewProvider>
+          <body className={dmSans.className}>
+            {children}
+            <PostDesignView />
+          </body>
+        </DesignViewProvider>
       </SessionProvider>
     </html>
   );

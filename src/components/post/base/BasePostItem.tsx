@@ -1,12 +1,10 @@
 import ProfilePicture from '@/components/atomic/ProfilePicture';
-import { formatFullPostDate } from '@/utils/formatDate';
+import { useDesignView } from '@/contexts/DesignViewContext';
 import { PostWithUserData } from '@/utils/types';
-import React, { ReactNode, useState } from 'react';
-import PostDesignView from '../PostDesignView';
-import BasePostActions from './BasePostActions';
+import React, { ReactNode } from 'react';
 import BasePostContent from './BasePostContent';
-import BasePostHeader from './BasePostHeader';
 import BasePostFooter from './BasePostFooter';
+import BasePostHeader from './BasePostHeader';
 
 interface BasePostItemProps {
   post: PostWithUserData;
@@ -19,7 +17,7 @@ const BasePostItem: React.FC<BasePostItemProps> = ({
   isDetailView = false,
   children
 }) => {
-  const [isDesignViewModalOpen, setIsDesignViewModalOpen] = useState(false);
+  const { openDesignView } = useDesignView();
 
   return (
     <div className={`bg-white rounded-lg ${isDetailView ? '' : 'border border-accent-200'} select-none`}>
@@ -28,17 +26,12 @@ const BasePostItem: React.FC<BasePostItemProps> = ({
           {!isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
           <div className='flex-grow'>
             <BasePostHeader post={post} isDetailView={isDetailView} />
-            <BasePostContent post={post} openDesignView={() => setIsDesignViewModalOpen(true)} />
+            <BasePostContent post={post} openDesignView={() => openDesignView(post)} />
             <BasePostFooter post={post} isDetailView={isDetailView} />
             {children}
           </div>
         </div>
       </div>
-      <PostDesignView
-        post={post}
-        isOpen={isDesignViewModalOpen}
-        onClose={() => setIsDesignViewModalOpen(false)}
-      />
     </div>
   );
 };

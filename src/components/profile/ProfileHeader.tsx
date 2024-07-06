@@ -45,13 +45,12 @@ const ProfileHeader = ({ user, isProfileOwner = false, follow, unfollow, onUpdat
             <span className='text-base-200'><span className='text-black font-semibold'>{user.followerCount}</span> followers</span>
           </div>
         </div>
-        {isModalOpen && (
-          <EditProfileModal
-            user={user}
-            onClose={toggleModal}
-            onUpdate={handleUserUpdate}
-          />
-        )}
+        <EditProfileModal
+          user={user}
+          isOpen={isModalOpen}
+          onClose={toggleModal}
+          onUpdate={handleUserUpdate}
+        />
       </div>
     </>
   );
