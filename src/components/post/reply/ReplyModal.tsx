@@ -5,6 +5,7 @@ import { RiCloseLine } from '@remixicon/react';
 import { PostWithUserData } from '@/utils/types';
 import Button from '@/components/atomic/Button';
 import ProfilePicture from '@/components/atomic/ProfilePicture';
+import CloseButton from '@/components/atomic/CloseButton';
 
 interface ReplyModalProps {
   post: PostWithUserData;
@@ -48,13 +49,12 @@ const ReplyModal: React.FC<ReplyModalProps> = ({ post, isOpen, onClose, onReply 
   return (
     <>
       <div className='fixed inset-0 w-full h-full z-40 bg-black opacity-50' onClick={handleOverlayClick} />
-      <div className='fixed z-50 flex flex-col w-full max-w-md h-auto rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white cursor-default select-none' onClick={(e) => e.stopPropagation()}>
+      <div className='fixed z-50 flex flex-col w-full max-w-xl h-auto rounded-lg top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-white cursor-default select-none' onClick={(e) => e.stopPropagation()}>
         <div className='flex flex-row items-center h-14 px-4'>
-          <button type='button' onClick={(e) => onClose(e)} className='rounded-full cursor-pointer p-2 hover:bg-accent-100'>
-            <RiCloseLine size={20} />
-          </button>
+          <CloseButton onClose={(e) => onClose(e)} />
         </div>
-        <form onSubmit={handleReply} className='px-4 pb-4'>
+        <hr />
+        <form onSubmit={handleReply} className='p-4'>
           <div className='mb-4 flex flex-col'>
             <div className='flex flex-row items-start relative'>
               <ProfilePicture src={post.authorPfp} />
@@ -65,7 +65,7 @@ const ReplyModal: React.FC<ReplyModalProps> = ({ post, isOpen, onClose, onReply 
                 <p className='text-black cursor-text select-text'>{post.content}</p>
                 {post.type === 'design' && (
                   <div className='mt-2'>
-                    <img src={post.designFile} alt='Design' className='w-1/2 h-auto rounded-lg' />
+                    <img src={post.designFile} alt='Design' className='w-1/3 h-auto rounded-lg' />
                   </div>
                 )}
               </div>
