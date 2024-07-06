@@ -4,17 +4,17 @@ import { RiSparkling2Fill } from '@remixicon/react';
 
 type BasePostContentProps = {
   post: PostWithUserData;
-  designView?: boolean;
+  isDesignView?: boolean;
   openDesignView?: () => void;
 }
 
-const BasePostContent = ({ post, designView, openDesignView }: BasePostContentProps) => {
+const BasePostContent = ({ post, isDesignView, openDesignView }: BasePostContentProps) => {
 
   const handleDesignClick = () => {
     if (openDesignView) openDesignView();
   };
 
-  if (post.type === 'design' && !designView) {
+  if (post.type === 'design' && !isDesignView) {
     return (
       <>
         {post.content && <p className='select-text'>{post.content}</p>}

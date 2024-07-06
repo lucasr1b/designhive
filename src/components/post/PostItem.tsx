@@ -16,6 +16,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, replies }) => {
 
   return (
     <BasePostItem post={post} isDetailView={true}>
+      <div className='bg-accent-200 w-full h-px mt-2' />
       <div className='mt-6'>
         <div className='flex w-full relative'>
           <ProfilePicture src={session?.pfp!} />
