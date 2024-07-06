@@ -8,15 +8,20 @@ type BasePostHeaderProps = {
 }
 
 const BasePostHeader = ({ post, isDetailView }: BasePostHeaderProps) => {
-  return (
-    <>
-      <div className='flex items-center'>
-        {isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
+  if (isDetailView) {
+    return (
+      <div className='flex items-center mb-4'>
+        <ProfilePicture src={post.authorPfp} className='mr-3' />
         <h3 className='font-semibold select-text'>{post.authorName}</h3>
-        {!isDetailView && <p className='text-sm text-gray-500 ml-auto select-text'>{formatPostDate(post.createdAt)}</p>}
       </div>
-      {isDetailView && <div className='mb-4'></div>}
-    </>
+    );
+  };
+
+  return (
+    <div className='flex items-center'>
+      <h3 className='font-semibold select-text'>{post.authorName}</h3>
+      <p className='text-sm text-gray-500 ml-auto select-text'>{formatPostDate(post.createdAt)}</p>
+    </div>
   );
 };
 
