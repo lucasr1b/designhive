@@ -24,7 +24,7 @@ const PostDesignViewModal = () => {
   return (
     <Modal modalId={modalId} width='100vw' height='100vh'>
       <div className='flex flex-row w-full h-full'>
-        <div className='flex-1 flex-col bg-black flex items-center justify-center relative'>
+        <div className='flex-1 flex-col bg-black bg-opacity-90 flex items-center justify-center relative'>
           <img
             src={post.designFile}
             alt='Design'
