@@ -8,6 +8,7 @@ interface ClickWrapperProps {
 
 const ClickWrapper: React.FC<ClickWrapperProps> = ({ onClick, children, className = '' }) => {
   const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.preventDefault();
     e.stopPropagation();
     if (onClick) {
       onClick(e);

@@ -4,10 +4,16 @@ import NewPost from './post/new/NewPost';
 import usePosts from '@/hooks/usePosts';
 import { PostWithUserData } from '@/utils/types';
 import FeedPostItem from './post/FeedPostItem';
+import FeedSlider from '../atomic/FeedSlider';
 
 const Feed = () => {
   const [activeFeed, setActiveFeed] = useState('forYou');
   const { posts, loading, error, loadMore, hasMore, addNewPost } = usePosts(activeFeed);
+
+  const feedOptions = [
+    { key: 'forYou', label: 'For you' },
+    { key: 'following', label: 'Following' },
+  ];
 
   const observer = useRef<IntersectionObserver>();
   const lastPostElementRef = useCallback(
@@ -30,19 +36,13 @@ const Feed = () => {
     addNewPost(newPost);
   };
 
-  const feedButtonClass = (feedType: string) => `
-  relative inline-block font-medium cursor-pointer
-  ${activeFeed === feedType
-      ? 'font-semibold before:absolute before:left-0 before:right-0 before:-bottom-2 before:h-1 before:bg-black before:rounded-full'
-      : 'text-base-200 hover:text-black'}
-`;
-
   return (
     <div className='flex flex-1 flex-col gap-6'>
-      <div className='flex flex-row gap-8'>
-        <h1 className={feedButtonClass('forYou')} onClick={() => changeFeed('forYou')}>For you</h1>
-        <h1 className={feedButtonClass('following')} onClick={() => changeFeed('following')}>Following</h1>
-      </div>
+      <FeedSlider
+        options={feedOptions}
+        activeFeed={activeFeed}
+        onFeedChange={changeFeed}
+      />
       <NewPost onPost={handleNewPost} />
       {posts.map((post, index) => (
         <div key={post._id} ref={index === posts.length - 1 ? lastPostElementRef : null}>
