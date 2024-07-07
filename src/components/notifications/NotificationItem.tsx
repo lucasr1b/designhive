@@ -23,12 +23,12 @@ const NotificationItem = ({ notification, sessionUsername }: NotificationItemPro
   const notificationIcon = useMemo(() => {
     switch (type) {
       case 'follow':
-        return <RiUserAddFill className='w-4 h-4' />;
+        return <RiUserAddFill className='w-6 h-6' />;
       case 'like_post':
       case 'like_reply':
-        return <RiHeartFill className='w-4 h-4' />;
+        return <RiHeartFill className='w-6 h-6' />;
       case 'reply':
-        return <RiReplyFill className='w-4 h-4' />;
+        return <RiReplyFill className='w-6 h-6' />;
       default:
         return null;
     }
@@ -52,24 +52,26 @@ const NotificationItem = ({ notification, sessionUsername }: NotificationItemPro
   return (
     <Link href={notificationLink} className='block hover:bg-accent-200'>
       <div className='p-4 border-b border-accent-200'>
-        <div className='flex items-center mb-2'>
-          <div className='bg-primary p-1.5 rounded-full mr-3 text-white'>
+        <div className='flex items-center'>
+          <div className='rounded-full text-primary flex-shrink-0'>
             {notificationIcon}
           </div>
-          <img src={actor.pfp} alt={actor.name} className='w-8 h-8 rounded-full' />
-        </div>
-        <div className='ml-11'>
-          <p className='text-sm'>
-            <span className='font-semibold'>{actor.name}</span>{' '}
-            {notificationText}
-          </p>
-          {(type === 'like_reply' || type === 'reply') && reply && (
-            <p className='text-xs text-gray-500 mt-1'>
-              &quot;{reply.content.length > 50
-                ? reply.content.substring(0, 50) + '...'
-                : reply.content}&quot;
+          <div className='ml-3'>
+            <img src={actor.pfp} alt={actor.name} className='w-8 h-8 rounded-full' />
+          </div>
+          <div className='ml-3 flex-grow'>
+            <p className='text-sm'>
+              <span className='font-semibold'>{actor.name}</span>{' '}
+              {notificationText}
             </p>
-          )}
+            {(type === 'like_reply' || type === 'reply') && reply && (
+              <p className='text-xs text-base-200 mt-1'>
+                &quot;{reply.content.length > 50
+                  ? reply.content.substring(0, 50) + '...'
+                  : reply.content}&quot;
+              </p>
+            )}
+          </div>
         </div>
       </div>
     </Link>
