@@ -1,4 +1,4 @@
-import Designers from './designers/Designers';
+import Designers from './creators/Creators';
 import Designs from './designs/Designs';
 import Search from './Search';
 

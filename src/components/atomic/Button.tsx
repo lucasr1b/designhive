@@ -12,7 +12,7 @@ type ButtonProps = {
 };
 
 const Button = ({ children, type = 'button', onClick, className = '', xsmall, small, large, outline, shadow, disabled = false, }: ButtonProps) => {
-  const sizeClass = xsmall ? 'w-20' : small ? 'w-28' : large ? 'w-48' : 'w-full';
+  const sizeClass = xsmall ? 'w-fit h-fit px-4 py-2' : small ? 'w-28' : large ? 'w-48' : 'w-full';
   let baseClass =
     outline
       ? 'border border-accent-200 text-black bg-transparent'
@@ -27,7 +27,7 @@ const Button = ({ children, type = 'button', onClick, className = '', xsmall, sm
   return (
     <button
       type={type}
-      className={`flex items-center justify-center gap-2 rounded-full select-none font-medium text-sm h-10 ${sizeClass} ${baseClass} ${disabledClass} ${shadowClass} ${className}`}
+      className={`flex items-center justify-center gap-2 rounded-full select-none font-semibold text-sm h-10 ${sizeClass} ${baseClass} ${disabledClass} ${shadowClass} ${className}`}
       onClick={onClick}
       disabled={disabled}
     >
