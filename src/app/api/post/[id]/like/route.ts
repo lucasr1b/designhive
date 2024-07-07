@@ -2,8 +2,8 @@ import { NextResponse, NextRequest } from 'next/server';
 import Post from '@/backend/models/Post';
 import Notification from '@/backend/models/Notification';
 import { getSession } from '@/utils/session';
-import mongoose from 'mongoose';
-import { isValidSession } from '@/backend/utils/helpers';
+import { ObjectId } from 'mongoose';
+import { isValidObjectId, isValidSession } from '@/backend/utils/helpers';
 
 export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
   try {
@@ -14,7 +14,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     }
 
     const { id } = params;
-    if (!mongoose.Types.ObjectId.isValid(id)) {
+    if (!isValidObjectId(id)) {
       return NextResponse.json({ error: 'Invalid post ID' }, { status: 400 });
     }
 
@@ -27,8 +27,8 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     const hasLiked = post.likes.includes(userId);
 
     if (hasLiked) {
-      post.likes = post.likes.filter((likeId: mongoose.Types.ObjectId) => likeId.toString() !== userId);
-      post.likeCount = Math.max(0, post.likeCount - 1);
+      post.likes = post.likes.filter((id: ObjectId) => id.toString() !== userId);
+      post.likeCount -= 1;
     } else {
       post.likes.push(userId);
       post.likeCount += 1;
@@ -45,7 +45,7 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
 
     await post.save();
 
-    return NextResponse.json({ message: hasLiked ? 'Post unliked' : 'Post liked', post }, { status: 200 });
+    return NextResponse.json(post, { status: 200 });
   } catch (error) {
     console.error('Error liking post:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

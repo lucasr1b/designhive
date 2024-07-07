@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import axios from 'axios';
 import { useSession } from '@/contexts/SessionContext';
 import { RiCloseLine } from '@remixicon/react';
@@ -10,41 +10,33 @@ import ClickWrapper from '@/components/atomic/ClickWrapper';
 import { useScrollLock } from '@/hooks/useScrollLock';
 import { useModal } from '@/contexts/ModalContext';
 import Modal from '@/components/atomic/Modal';
+import Textarea from '@/components/atomic/Textarea';
 
 const modalId = 'reply';
 
 const ReplyModal = () => {
   const { session } = useSession();
-  const replyRef = useRef<HTMLTextAreaElement>(null);
+  const [replyContent, setReplyContent] = useState('');
 
   const { closeModal, getModalProps } = useModal();
 
   const modalProps = getModalProps(modalId);
   if (!modalProps) return null;
 
-  const { post } = modalProps as { post: PostWithUserData };
+  const { post, onReply } = modalProps as { post: PostWithUserData; onReply: () => void };
 
   const handleReply = async () => {
-    const reply = replyRef.current?.value || '';
-    if (!reply.trim()) return;
-    modalProps.onReply();
+    if (!replyContent.trim()) return;
+    onReply();
+    setReplyContent('');
     closeModal(modalId);
 
     try {
-      await axios.post(`/api/post/${post._id}/reply`, { content: reply });
+      await axios.post(`/api/post/${post._id}/reply`, { content: replyContent });
     } catch (error) {
       console.error('Error replying:', error);
     }
   };
-
-  const handleReplyTextareaHeight = () => {
-    if (replyRef.current) {
-      replyRef.current.style.height = 'auto';
-      replyRef.current.style.height = `${replyRef.current.scrollHeight}px`;
-    }
-  };
-
-  if (!modalProps) return null;
 
   return (
     <Modal modalId={modalId} width='34rem'>
@@ -80,10 +72,10 @@ const ReplyModal = () => {
             <div className='flex w-full mt-4 relative'>
               <ProfilePicture src={session?.pfp!} />
               <div className='flex flex-col pl-3 pt-2 w-full'>
-                <textarea
-                  ref={replyRef}
-                  onChange={handleReplyTextareaHeight}
-                  className='text-xl outline-none w-full min-h-16 max-h-64 resize-none overflow-hidden placeholder:text-base-200'
+                <Textarea
+                  value={replyContent}
+                  onChange={setReplyContent}
+                  className='text-xl outline-none w-full min-h-16 max-h-64 placeholder:text-base-200'
                   placeholder='Post your reply'
                 />
               </div>

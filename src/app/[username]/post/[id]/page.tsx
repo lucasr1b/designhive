@@ -31,6 +31,19 @@ const PostPage = ({ params }: { params: { id: string } }) => {
     fetchPostAndReplies();
   }, [params.id]);
 
+  const addNewReply = (newReply: ReplyWithUserData) => {
+    setPost(prevPost => {
+      if (prevPost === null) {
+        return prevPost;
+      }
+      return {
+        ...prevPost,
+        replyCount: prevPost.replyCount + 1
+      };
+    });
+    setReplies(prevReplies => [newReply, ...prevReplies]);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -42,7 +55,7 @@ const PostPage = ({ params }: { params: { id: string } }) => {
   return (
     <AppLayout>
       <div className='flex flex-1 flex-col gap-2 p-2'>
-        <PostItem post={post} replies={replies} />
+        <PostItem key={replies.length} post={post} replies={replies} onNewReply={addNewReply} />
       </div>
     </AppLayout>
   );
