@@ -41,8 +41,13 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
     openModal('reply', { post, onReply });
   };
 
-  const handleAddToHive = () => {
-    console.log('Add to Hive clicked');
+  const handleAddToHive = async () => {
+    try {
+      await axios.post(`/api/hive/my/add`, { postId: post._id });
+      // handle reflection of adding to hive
+    } catch (error) {
+      console.error('Error adding post to hive:', error);
+    }
   };
 
   const handleShare = () => {

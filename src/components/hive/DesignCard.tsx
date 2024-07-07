@@ -5,6 +5,7 @@ import { RiDashboardLine, RiHeart2Fill, RiHeart2Line } from '@remixicon/react';
 import PostAction from '../post/base/actions/PostAction';
 import React, { useCallback } from 'react';
 import axios from 'axios';
+import { useModal } from '@/contexts/ModalContext';
 
 interface DesignCardProps {
   design: PostWithUserData;
@@ -12,6 +13,8 @@ interface DesignCardProps {
 
 const DesignCard: React.FC<DesignCardProps> = ({ design }) => {
   const [liked, setLiked] = React.useState(design.initialLiked);
+
+  const { openModal } = useModal();
 
   const handleLike = useCallback(async () => {
     const previousLiked = liked;
@@ -33,7 +36,7 @@ const DesignCard: React.FC<DesignCardProps> = ({ design }) => {
   return (
     <div key={design._id} className='my-6'>
       <div className="relative">
-        <Link href={`${design.authorUsername}/post/${design._id}`}>
+        <div onClick={() => openModal('postDesignView', design)} className='cursor-pointer'>
           <div className="relative rounded-lg group overflow-hidden">
             <img
               className="h-auto w-full transition-transform duration-300 ease-in-out group-hover:scale-105 border border-accent-200 rounded-lg"
@@ -67,7 +70,7 @@ const DesignCard: React.FC<DesignCardProps> = ({ design }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       </div>
     </div>
   );

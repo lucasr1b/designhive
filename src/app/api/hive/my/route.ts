@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getSession } from '@/utils/session';
 import Post from '@/backend/models/Post';
-import User from '@/backend/models/User';
+import User, { IUser } from '@/backend/models/User';
 import { isValidSession } from '@/backend/utils/helpers';
 import { User as UserType, Post as PostType, PostWithUserData } from '@/utils/types';
 import { ObjectId } from 'mongoose';
@@ -14,13 +14,19 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const designPosts = await Post.find({ type: 'design' })
+    const user = await User.findById(session._id).select('hive').lean<IUser>();
+
+    if (!user) {
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
+    }
+
+    const hivePosts = await Post.find({ _id: { $in: user.hive } })
       .sort({ createdAt: -1 })
       .lean<PostType[]>();
 
-    if (!designPosts.length) return NextResponse.json([]);
+    if (!hivePosts.length) return NextResponse.json([]);
 
-    const authorIds = designPosts.map(post => post.authorId);
+    const authorIds = hivePosts.map(post => post.authorId);
     const authors = await User.find({ _id: { $in: authorIds } })
       .select('name username pfp')
       .lean<UserType[]>();
@@ -30,7 +36,7 @@ export async function GET(request: NextRequest) {
       return map;
     }, {} as Record<string, UserType>);
 
-    const postsWithAuthorData: PostWithUserData[] = designPosts.map(post => {
+    const postsWithAuthorData: PostWithUserData[] = hivePosts.map(post => {
       const author = authorsMap[post.authorId.toString()];
       return {
         ...post,
@@ -43,7 +49,7 @@ export async function GET(request: NextRequest) {
 
     return NextResponse.json(postsWithAuthorData);
   } catch (error) {
-    console.error('Error fetching design posts:', error);
+    console.error('Error fetching user hive posts:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

@@ -11,6 +11,7 @@ export interface IUser extends Document {
   following: ObjectId[];
   followerCount: number;
   followingCount: number;
+  hive: ObjectId[];
   password: string;
   comparePassword(password: string): Promise<boolean>;
 }
@@ -58,6 +59,12 @@ const UserSchema: Schema<IUser> = new Schema({
     type: Number,
     default: 0
   },
+  hive: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: 'Post'
+    }
+  ],
   password: {
     type: String,
     required: true

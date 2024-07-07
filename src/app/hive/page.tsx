@@ -2,19 +2,24 @@
 
 import AppLayout from '@/components/atomic/AppLayout';
 import FeedSlider from '@/components/atomic/FeedSlider';
-import { useState, useEffect } from 'react';
-import Masonry from 'react-masonry-css';
-import { PostWithUserData } from '@/utils/types';
-import Link from 'next/link';
 import Explore from '@/components/hive/Explore';
+import MyHive from '@/components/hive/MyHive';
+import { useState } from 'react';
 
-const Hive = () => {
+const HivePage = () => {
   const [activeFeed, setActiveFeed] = useState('explore');
 
   const feedOptions = [
     { key: 'explore', label: 'Explore' },
     { key: 'myHive', label: 'My hive' },
   ];
+
+  const ActiveFeed = () => {
+    if (activeFeed === 'explore') return <Explore />;
+    if (activeFeed === 'myHive') return <MyHive />;
+
+    return null;
+  }
 
   return (
     <AppLayout>
@@ -24,10 +29,10 @@ const Hive = () => {
           activeFeed={activeFeed}
           onFeedChange={setActiveFeed}
         />
-        <Explore />
+        <ActiveFeed />
       </div>
     </AppLayout>
   );
 };
 
-export default Hive;
+export default HivePage;

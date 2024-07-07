@@ -20,13 +20,14 @@ export interface User {
   followerCount: number;
   followingCount: number;
   isFollowing: boolean;
+  hive: string[];
 }
 
 export interface Post {
   _id: string;
   authorId: string;
   type: string;
-  content: string;
+  content?: string;
   designFile?: string;
   likes: string[]
   likeCount: number;
@@ -56,4 +57,9 @@ export interface ReplyWithUserData extends Reply {
   authorUsername: string;
   authorPfp: string;
   initialLiked: boolean;
+}
+
+export interface FeedOption {
+  key: string;
+  label: string;
 }

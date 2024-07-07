@@ -30,8 +30,8 @@ const PostDesignViewModal = () => {
             alt='Design'
             className='h-full w-full max-w-full max-h-full object-contain opacity-100'
           />
-          <ClickWrapper onClick={() => closeModal(modalId)} className='absolute top-4 left-4 z-10'>
-            <RiCloseLine size={24} className='text-white hover:text-gray-300 cursor-pointer' />
+          <ClickWrapper onClick={() => closeModal(modalId)} className='absolute top-4 left-4 z-10 p-2 rounded-full cursor-pointer bg-white hover:bg-accent-400'>
+            <RiCloseLine size={24} />
           </ClickWrapper>
         </div>
         <div className='w-96 flex flex-col border-l border-gray-200 bg-white'>
