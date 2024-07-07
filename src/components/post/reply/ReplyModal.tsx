@@ -24,8 +24,7 @@ const ReplyModal = () => {
 
   const { post } = modalProps as { post: PostWithUserData };
 
-  const handleReply = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleReply = async () => {
     const reply = replyRef.current?.value || '';
     if (!reply.trim()) return;
     modalProps.onReply();
@@ -56,7 +55,7 @@ const ReplyModal = () => {
           </ClickWrapper>
         </div>
         <hr />
-        <form onSubmit={handleReply} className='p-4'>
+        <form className='p-4'>
           <div className='mb-4 flex flex-col'>
             <div className='flex flex-row items-start relative'>
               <ProfilePicture src={post.authorPfp} />
@@ -91,7 +90,7 @@ const ReplyModal = () => {
             </div>
           </div>
           <div className='flex justify-end mt-4'>
-            <Button xsmall type='submit'>Reply</Button>
+            <Button xsmall onClick={handleReply}>Reply</Button>
           </div>
         </form>
       </div>

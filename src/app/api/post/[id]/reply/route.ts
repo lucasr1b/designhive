@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from 'next/server';
 import Post from '@/backend/models/Post';
 import Reply from '@/backend/models/Reply';
+import Notification from '@/backend/models/Notification';
 import { getSession } from '@/utils/session';
 import mongoose from 'mongoose';
 import { isValidSession } from '@/backend/utils/helpers';
@@ -37,10 +38,20 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
     post.replyCount += 1;
     await post.save();
 
+    if (post.authorId.toString() !== session._id) {
+      await Notification.create({
+        userId: post.authorId,
+        type: 'reply',
+        actorId: session._id,
+        postId: post._id,
+        replyId: newReply._id
+      });
+    }
+
     return NextResponse.json(newReply, { status: 201 });
 
   } catch (error) {
-    console.error('Error adding comment:', error);
+    console.error('Error adding reply:', error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }

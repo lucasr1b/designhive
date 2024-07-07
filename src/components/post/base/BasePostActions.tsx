@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import axios from 'axios';
-import { RiChat1Line, RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiShare2Line } from '@remixicon/react';
+import { RiChat1Line, RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiHeartFill, RiHeartLine, RiShare2Line } from '@remixicon/react';
 import PostAction from './actions/PostAction';
 import ClickWrapper from '@/components/atomic/ClickWrapper';
 import { PostWithUserData } from '@/utils/types';
@@ -70,7 +70,7 @@ const BasePostActions: React.FC<BasePostActionsProps> = ({
         </ClickWrapper>
         <ClickWrapper onClick={handleLike}>
           <PostAction
-            icon={liked ? <RiHeart2Fill /> : <RiHeart2Line />}
+            icon={liked ? <RiHeartFill /> : <RiHeartLine />}
             count={likeCount}
             tooltip={liked ? 'Unlike' : 'Like'}
             color={liked ? 'red-500' : 'base-200'}

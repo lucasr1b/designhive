@@ -59,6 +59,27 @@ export interface ReplyWithUserData extends Reply {
   initialLiked: boolean;
 }
 
+export interface Notification {
+  _id: string;
+  type: 'follow' | 'like_post' | 'like_reply' | 'reply';
+  actor: {
+    name: string;
+    username: string;
+    pfp: string;
+  };
+  post?: {
+    _id: string;
+    type: string;
+    content?: string;
+    designFile?: string;
+  };
+  reply?: {
+    _id: string;
+    content: string;
+  };
+  createdAt: string;
+}
+
 export interface FeedOption {
   key: string;
   label: string;

@@ -1,7 +1,7 @@
 import { PostWithUserData } from '@/utils/types';
 import Link from 'next/link';
 import ClickWrapper from '@/components/atomic/ClickWrapper';
-import { RiDashboardLine, RiHeart2Fill, RiHeart2Line } from '@remixicon/react';
+import { RiDashboardLine, RiHeart2Fill, RiHeart2Line, RiHeartFill, RiHeartLine } from '@remixicon/react';
 import PostAction from '../post/base/actions/PostAction';
 import React, { useCallback } from 'react';
 import axios from 'axios';
@@ -52,7 +52,7 @@ const DesignCard: React.FC<DesignCardProps> = ({ design }) => {
                 <div className="flex flex-row gap-4 relative">
                   <ClickWrapper onClick={handleLike}>
                     <PostAction
-                      icon={liked ? <RiHeart2Fill /> : <RiHeart2Line />}
+                      icon={liked ? <RiHeartFill /> : <RiHeartLine />}
                       tooltip={liked ? 'Unlike' : 'Like'}
                       color={liked ? 'red-500' : 'white'}
                       hoverColor={liked ? 'red-600' : 'red-500'}
