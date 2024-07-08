@@ -64,7 +64,7 @@ const UploadDesign = ({ setDesignFile, designPreview, setDesignPreview }: Upload
     !designPreview ? (
       <div
         id='fileInputInnerWrapper'
-        className={`flex w-full border-2 rounded-md overflow-hidden group min-h-24 border-dashed transition-colors duration-300 ease-in-out
+        className={`flex w-full border-2 rounded-md mt-3 overflow-hidden group min-h-24 border-dashed transition-colors duration-300 ease-in-out
 ${dragActive ? 'border-blue-500 bg-blue-50' : 'border-neutral-300 group-hover:border-blue-300'}`}
         onDragEnter={handleFileDrag}
         onDragLeave={handleFileDrag}

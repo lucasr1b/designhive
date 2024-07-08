@@ -24,20 +24,18 @@ const BasePostItem: React.FC<BasePostItemProps> = ({
   };
 
   return (
-    <div className={`bg-white rounded-lg ${isDetailView ? '' : 'border border-accent-200'} select-none`}>
-      <div className='p-4'>
-        <div className='flex'>
-          {!isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
-          <div className='flex-grow'>
-            <BasePostHeader post={post} isDetailView={isDetailView} />
-            <BasePostContent post={post} openDesignView={() => handleOpenDesignView(post)} />
-            <BasePostFooter post={post} isDetailView={isDetailView} />
-            {children}
-          </div>
+    <>
+      <div className='flex p-4 rounded-lg border border-bg-accent-200 hover:bg-accent-100'>
+        {!isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
+        <div className='flex-grow'>
+          <BasePostHeader post={post} isDetailView={isDetailView} />
+          <BasePostContent post={post} openDesignView={() => handleOpenDesignView(post)} />
+          <BasePostFooter post={post} isDetailView={isDetailView} />
+          {children}
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
-export default React.memo(BasePostItem);
+export default BasePostItem;

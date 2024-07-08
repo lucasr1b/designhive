@@ -15,7 +15,7 @@ const config: Config = {
           '200': '#686f7a',
         },
         'accent': {
-          '100': '#F2F2F2',
+          '100': '#F8F8F8',
           '200': '#E5E5E5',
           '300': '#EEEEEE',
           '400': '#E0E0E0',
@@ -40,6 +40,8 @@ const config: Config = {
     'text-base-200',
     'text-red-500',
     'border-blue-500',
+    'hover:cursor-pointer',
+    'cursor-pointer',
   ],
   plugins: [],
 };

@@ -37,7 +37,7 @@ const Feed = () => {
   };
 
   return (
-    <div className='flex flex-1 flex-col gap-6'>
+    <div className='flex flex-1 flex-col gap-8'>
       <FeedSlider
         options={feedOptions}
         activeFeed={activeFeed}

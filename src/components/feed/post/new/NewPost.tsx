@@ -70,12 +70,6 @@ const NewPost = ({ onPost }: NewPostProps) => {
           />
           {postType === 'design' && <UploadDesign setDesignFile={setDesignFile} designPreview={designPreview} setDesignPreview={setDesignPreview} />}
           <div className='flex flex-row gap-6 mt-4'>
-            {postType === 'text' && (
-              <>
-                <span className='text-base-200 cursor-pointer transition hover:text-black'><RiImageAddLine size={20} /></span>
-                <span className='text-sm text-base-200 cursor-pointer transition hover:text-black'><RiUserSmileLine size={20} /></span>
-              </>
-            )}
             <Button small shadow className='ml-auto' onClick={handlePost} disabled={!postContent.trim()}>Post</Button>
           </div>
         </div>

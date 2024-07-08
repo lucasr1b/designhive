@@ -22,4 +22,4 @@ const FeedPostItem = ({ post }: FeedPostItemProps) => {
   );
 };
 
-export default React.memo(FeedPostItem);
+export default FeedPostItem;
