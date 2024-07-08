@@ -25,7 +25,7 @@ const BasePostItem: React.FC<BasePostItemProps> = ({
 
   return (
     <>
-      <div className='flex p-4 rounded-lg border border-bg-accent-200 hover:bg-accent-100'>
+      <div className='flex p-4 rounded-lg border border-accent-200 hover:bg-accent-100'>
         {!isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
         <div className='flex-grow'>
           <BasePostHeader post={post} isDetailView={isDetailView} />

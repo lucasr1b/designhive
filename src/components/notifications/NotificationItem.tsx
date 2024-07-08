@@ -50,7 +50,7 @@ const NotificationItem = ({ notification, sessionUsername }: NotificationItemPro
   }, [type]);
 
   return (
-    <Link href={notificationLink} className='block hover:bg-accent-200'>
+    <Link href={notificationLink} className='block hover:bg-accent-100'>
       <div className='p-4 border-b border-accent-200'>
         <div className='flex items-center'>
           <div className='rounded-full text-primary flex-shrink-0'>
