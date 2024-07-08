@@ -66,7 +66,7 @@ const NewPost = ({ onPost }: NewPostProps) => {
             value={postContent}
             onChange={setPostContent}
             className='text-xl outline-none w-full h-auto max-h-96 placeholder:text-base-200'
-            placeholder={postType === 'text' ? "What's happening?" : 'Check out my latest design!'}
+            placeholder={postType === 'text' ? "What's happening?!" : 'Did I cook?'}
           />
           {postType === 'design' && <UploadDesign setDesignFile={setDesignFile} designPreview={designPreview} setDesignPreview={setDesignPreview} />}
           <div className='flex flex-row gap-6 mt-4'>
