@@ -21,7 +21,7 @@ const PostAction: React.FC<PostActionProps> = ({
 
   return (
     <div
-      className='relative inline-flex items-center gap-2 cursor-pointer select-none z-10'
+      className='relative inline-flex items-center gap-2 cursor-pointere z-10'
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}
       onClick={onClick}

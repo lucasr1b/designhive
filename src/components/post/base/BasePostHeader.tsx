@@ -7,10 +7,10 @@ import { useRouter } from 'next/navigation';
 
 type BasePostHeaderProps = {
   post: PostWithUserData;
-  isDetailView: boolean;
+  isPostView: boolean;
 }
 
-const BasePostHeader = ({ post, isDetailView }: BasePostHeaderProps) => {
+const BasePostHeader = ({ post, isPostView }: BasePostHeaderProps) => {
   const { isModalOpen, closeModal } = useModal();
 
   const { push } = useRouter();
@@ -20,7 +20,7 @@ const BasePostHeader = ({ post, isDetailView }: BasePostHeaderProps) => {
     push(`/${post.authorUsername}/post/${post._id}`);
   }
 
-  if (isDetailView) {
+  if (isPostView) {
     return (
       <div className='flex items-center mb-4'>
         <ProfilePicture src={post.authorPfp} className='mr-3' />

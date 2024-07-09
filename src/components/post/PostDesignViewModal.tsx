@@ -36,9 +36,9 @@ const PostDesignViewModal = () => {
         </div>
         <div className='w-96 flex flex-col border-l border-gray-200 bg-white'>
           <div className='overflow-y-auto p-4'>
-            <BasePostHeader post={post} isDetailView={true} />
+            <BasePostHeader post={post} isPostView={true} />
             <BasePostContent post={post} isDesignView={true} />
-            <BasePostFooter post={post} isDetailView={true} />
+            <BasePostFooter post={post} isPostView={true} />
             <div className='bg-accent-200 w-full h-px mt-2' />
             <div className='mt-6'>
               <div className='flex w-full relative'>

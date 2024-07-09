@@ -39,7 +39,7 @@ const PostItem: React.FC<PostItemProps> = ({ post, replies, onNewReply }) => {
   };
 
   return (
-    <BasePostItem post={post} isDetailView={true}>
+    <BasePostItem post={post} isPostView={true}>
       <div className='bg-accent-200 w-full h-px mt-2' />
       <div className='mt-3'>
         <div className='flex w-full relative'>
@@ -78,9 +78,8 @@ const PostItem: React.FC<PostItemProps> = ({ post, replies, onNewReply }) => {
       </div>
       <div className='bg-accent-200 w-full h-px mt-4' />
       <div className='mt-4 select-text'>
-        <h2 className='text-xl font-semibold mb-2'>Replies</h2>
         {replies.length === 0 && <p className='text-base-200'>There are no replies on this post yet.</p>}
-        <div className='mt-4'>
+        <div className='mt-6'>
           {replies.map((reply) => (
             <ReplyItem key={reply._id} {...reply} />
           ))}

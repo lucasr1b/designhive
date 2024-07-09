@@ -8,13 +8,13 @@ import { useModal } from '@/contexts/ModalContext';
 
 interface BasePostItemProps {
   post: PostWithUserData;
-  isDetailView?: boolean;
+  isPostView?: boolean;
   children?: ReactNode;
 }
 
 const BasePostItem: React.FC<BasePostItemProps> = ({
   post,
-  isDetailView = false,
+  isPostView = false,
   children
 }) => {
   const { openModal } = useModal();
@@ -25,12 +25,12 @@ const BasePostItem: React.FC<BasePostItemProps> = ({
 
   return (
     <>
-      <div className='flex p-4 rounded-lg border border-accent-200 hover:bg-accent-100'>
-        {!isDetailView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
+      <div className={`flex p-4 ${!isPostView && 'rounded-lg border border-accent-200 hover:bg-accent-100'}`}>
+        {!isPostView && <ProfilePicture src={post.authorPfp} className='mr-3' />}
         <div className='flex-grow'>
-          <BasePostHeader post={post} isDetailView={isDetailView} />
+          <BasePostHeader post={post} isPostView={isPostView} />
           <BasePostContent post={post} openDesignView={() => handleOpenDesignView(post)} />
-          <BasePostFooter post={post} isDetailView={isDetailView} />
+          <BasePostFooter post={post} isPostView={isPostView} />
           {children}
         </div>
       </div>

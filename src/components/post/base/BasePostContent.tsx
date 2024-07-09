@@ -17,7 +17,7 @@ const BasePostContent = ({ post, isDesignView, openDesignView }: BasePostContent
   if (post.type === 'design' && !isDesignView) {
     return (
       <>
-        {post.content && <p className='select-text'>{post.content}</p>}
+        {post.content && <p>{post.content}</p>}
         <ClickWrapper onClick={handleDesignClick}>
           <div className='relative mt-2 cursor-pointer'>
             <img src={post.designFile} alt='Design' className='w-full h-auto rounded-lg border border-accent-200' />
@@ -30,7 +30,7 @@ const BasePostContent = ({ post, isDesignView, openDesignView }: BasePostContent
     );
   }
 
-  return <p className='select-text'>{post.content}</p>;
+  return <p>{post.content}</p>;
 };
 
 export default BasePostContent;
